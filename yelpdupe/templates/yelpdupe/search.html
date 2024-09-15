@@ -20,7 +20,9 @@
             flex-direction: column;
             margin-bottom: 20px;
         }
-        input[type="text"] {
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
@@ -62,7 +64,7 @@
             <h2>Search Results:</h2>
             <ul>
                 {% for place in results %}
-                    <li><strong>{{ place.name }}</strong> - {{ place.formatted_address }}</li>
+                    <li><strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})</li>
                 {% endfor %}
             </ul>
         {% elif request.method == 'POST' %}

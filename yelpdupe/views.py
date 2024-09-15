@@ -19,15 +19,28 @@ def search_restaurants(request):
         form = SearchForm(request.POST)  # Bind data to the form
         if form.is_valid():  # Validate the form data
             query = form.cleaned_data['query']  # Get the cleaned data from the form
+            distance = form.cleaned_data['distance']  # Get the user-specified distance
+            min_rating = form.cleaned_data['min_rating']  # Get the user-specified minimum rating
+
+            location = '40.712776,-74.005974'  # Currently set to NY city
+
             url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             params = {
                 'query': query,  # Use the search query input by the user
                 'type': 'restaurant',  # Specify the type of place to search
                 'key': settings.GOOGLE_PLACES_KEY,  # Access the API key securely from settings
+                'location': location,  # Center point of the search
+                'radius': distance,  # Use the user-specified distance
             }
             response = requests.get(url, params=params)  # Make the API request
             if response.status_code == 200:  # Check if the request was successful
-                results = response.json().get('results', [])  # Extract the results from the response
+                all_results = response.json().get('results', [])  # Extract the results from the response
+
+                # Filter results based on user-specified minimum rating
+                results = [place for place in all_results if place.get('rating', 0) >= min_rating]
+
+                # Optional: Sort results by rating descending
+                results.sort(key=lambda x: x.get('rating', 0), reverse=True)
             else:
                 results = []  # Handle errors gracefully
 
