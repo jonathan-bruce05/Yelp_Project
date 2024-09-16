@@ -49,3 +49,12 @@ def search_restaurants(request):
         'results': results,  # Pass the search results to the template
     }
     return render(request, 'yelpdupe/search.html', context)  # Render the template with context
+
+def map_view(request):
+    # Example restaurant locations (latitude and longitude)
+    locations = [
+        {'name': 'Restaurant 1', 'lat': 40.730610, 'lng': -73.935242},
+        {'name': 'Restaurant 2', 'lat': 40.741610, 'lng': -73.945242},
+        # Add more locations as needed
+    ]
+    return render(request, 'map.html', {'locations': locations})

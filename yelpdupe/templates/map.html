@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Locations</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_PLACES_KEY }}&callback=initMap"
+        async defer></script>
+    <script type="text/javascript">
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: {lat: 40.730610, lng: -73.935242}  // Default to New York City
+            });
+
+            var locations = {{ locations|safe }};  // Pass locations from Django view
+
+            locations.forEach(function(location) {
+                var marker = new google.maps.Marker({
+                    position: {lat: location.lat, lng: location.lng},
+                    map: map,
+                    title: location.name
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Restaurant Locations</h1>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>
