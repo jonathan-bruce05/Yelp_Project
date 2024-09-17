@@ -57,4 +57,9 @@ def map_view(request):
         {'name': 'Restaurant 2', 'lat': 40.741610, 'lng': -73.945242},
         # Add more locations as needed
     ]
-    return render(request, 'yelpdupe/map.html', {'locations': locations})
+    context = {
+        'locations': locations,
+        'GOOGLE_MAPS_API_KEY': settings.GOOGLE_PLACES_KEY  # Add API key to context
+    }
+
+    return render(request, 'yelpdupe/map.html', context)
