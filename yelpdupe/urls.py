@@ -1,11 +1,8 @@
 from . import views
 from django.urls import path
-from .views import map_view
+from .views import map_view, search_restaurants
 
-#Restaurant search imports
-from .views import search_restaurants
-
-app_name = "YelpDupe"
+# app_name = "YelpDupe"
 
 urlpatterns = [
     path("", views.index, name="index"),

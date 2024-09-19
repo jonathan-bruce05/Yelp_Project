@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
@@ -15,6 +15,8 @@ def index(request):
 def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
     results = []
+    restaurant_locations = []  # This will store lat/lng/name for the map
+
     if request.method == 'POST':  # Check if the form was submitted
         form = SearchForm(request.POST)  # Bind data to the form
         if form.is_valid():  # Validate the form data
@@ -41,22 +43,29 @@ def search_restaurants(request):
 
                 # Optional: Sort results by rating descending
                 results.sort(key=lambda x: x.get('rating', 0), reverse=True)
+                for result in results:
+                    if 'geometry' in result and 'location' in result['geometry']:
+                        lat = result['geometry']['location']['lat']
+                        lng = result['geometry']['location']['lng']
+                        name = result.get('name', 'Unknown Restaurant')
+                        restaurant_locations.append({
+                            'name': name,
+                            'lat': lat,
+                            'lng': lng
+                        })
             else:
                 results = []  # Handle errors gracefully
+    request.session['restaurant_locations'] = restaurant_locations
 
     context = {
         'form': form,  # Pass the form to the template
         'results': results,  # Pass the search results to the template
     }
     return render(request, 'yelpdupe/search.html', context)  # Render the template with context
-
+    # return redirect('map')
 def map_view(request):
     # Example restaurant locations (latitude and longitude)
-    locations = [
-        {'name': 'Restaurant 1', 'lat': 40.730610, 'lng': -73.935242},
-        {'name': 'Restaurant 2', 'lat': 40.741610, 'lng': -73.945242},
-        # Add more locations as needed
-    ]
+    locations = request.session.get('restaurant_locations', [])
     context = {
         'locations': locations,
         'GOOGLE_MAPS_API_KEY': settings.GOOGLE_PLACES_KEY  # Add API key to context
