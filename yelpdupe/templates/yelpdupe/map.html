@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Locations</title>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap"
+        async defer>
+    </script>
+
+    <script type="text/javascript">
+        function initMap() {
+            // Create the map centered at a default location (e.g., Atlanta, GA)
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: {lat: 33.7490, lng: -84.3880}  // Default center (Atlanta)
+            });
+
+            // Retrieve locations from Django template context
+            var locations = {{ locations|safe }};
+
+            // Loop through the locations and create markers
+            locations.forEach(function(location) {
+                var marker = new google.maps.Marker({
+                    position: {lat: location.lat, lng: location.lng},
+                    map: map,
+                    title: location.name
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Restaurant Locations</h1>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>
