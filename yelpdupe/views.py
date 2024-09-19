@@ -22,7 +22,7 @@ def search_restaurants(request):
             distance = form.cleaned_data['distance']  # Get the user-specified distance
             min_rating = form.cleaned_data['min_rating']  # Get the user-specified minimum rating
 
-            location = '40.712776,-74.005974'  # Currently set to NY city
+            location = '33.7490,-84.3880'  # Currently set to NY city
 
             url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             params = {
