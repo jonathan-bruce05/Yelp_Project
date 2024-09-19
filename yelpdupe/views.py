@@ -6,7 +6,7 @@ import requests
 from yelpdupe.forms import SearchForm
 from django.conf import settings
 
-#a
+#
 def index(request):
     return HttpResponse("Hello. Yelp_Dupe")
 
