@@ -1,51 +1,40 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
+from yelpdupe.forms import RegisterForm
 
-#Imports used for Restaurant search
-import requests
-from yelpdupe.forms import SearchForm
-from django.conf import settings
-
-
+# Define the index view
 def index(request):
-    return HttpResponse("Hello. Yelp_Dupe")
+    return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template
 
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log the user in after successful registration
+            return redirect('home')  # Redirect to home after registration
+    else:
+        form = RegisterForm()
 
-#Google Restaurant search implementation
-def search_restaurants(request):
-    form = SearchForm()  # Create an empty form instance
-    results = []
-    if request.method == 'POST':  # Check if the form was submitted
-        form = SearchForm(request.POST)  # Bind data to the form
-        if form.is_valid():  # Validate the form data
-            query = form.cleaned_data['query']  # Get the cleaned data from the form
-            distance = form.cleaned_data['distance']  # Get the user-specified distance
-            min_rating = form.cleaned_data['min_rating']  # Get the user-specified minimum rating
+    return render(request, 'yelpdupe/register.html', {'form': form})
 
-            location = '40.712776,-74.005974'  # Currently set to NY city
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # Redirect to the homepage after login
+    else:
+        form = AuthenticationForm()
 
-            url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
-            params = {
-                'query': query,  # Use the search query input by the user
-                'type': 'restaurant',  # Specify the type of place to search
-                'key': settings.GOOGLE_PLACES_KEY,  # Access the API key securely from settings
-                'location': location,  # Center point of the search
-                'radius': distance,  # Use the user-specified distance
-            }
-            response = requests.get(url, params=params)  # Make the API request
-            if response.status_code == 200:  # Check if the request was successful
-                all_results = response.json().get('results', [])  # Extract the results from the response
+    return render(request, 'yelpdupe/login.html', {'form': form})
 
-                # Filter results based on user-specified minimum rating
-                results = [place for place in all_results if place.get('rating', 0) >= min_rating]
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirect to login after logging out
 
-                # Optional: Sort results by rating descending
-                results.sort(key=lambda x: x.get('rating', 0), reverse=True)
-            else:
-                results = []  # Handle errors gracefully
-
-    context = {
-        'form': form,  # Pass the form to the template
-        'results': results,  # Pass the search results to the template
-    }
-    return render(request, 'yelpdupe/search.html', context)  # Render the template with context

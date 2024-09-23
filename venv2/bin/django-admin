@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/jay.t/Documents/Github repo/Yelp_Project/venv2/bin/python3.12" "$0" "$@"
-' '''
+#!/Users/tquanle/cs2340/Yelp_Project/venv2/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys

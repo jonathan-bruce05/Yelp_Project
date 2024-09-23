@@ -1,12 +1,12 @@
 from . import views
 from django.urls import path
-
-#Restaurant search imports
-from .views import search_restaurants
+from .views import register, login_view, logout_view
 
 app_name = "YelpDupe"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path('search/', search_restaurants, name='search_restaurants'),
+    path('register/', register, name='register'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
 ]
