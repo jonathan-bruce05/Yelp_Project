@@ -42,14 +42,14 @@
   font-size: 4vw;
   letter-spacing: 0;
   line-height: normal;
-  text-align: center;
+  text-align: left;
 }
 
 .home-page .atlanta-awaits {
   position: relative;
   width: 100%;
   max-width: 80vw;
-  top: 0;
+  top: -5vh;
   left: 0;
   font-family: "Inter", Helvetica;
   font-weight: 600;
