@@ -7,9 +7,8 @@ from yelpdupe.forms import SearchForm
 from django.conf import settings
 
 #
-def index(request):
-    return HttpResponse("Hello. Yelp_Dupe")
-
+def home(request):
+    return render(request, 'yelpdupe/home.html')
 
 #Google Restaurant search implementation
 def search_restaurants(request):
