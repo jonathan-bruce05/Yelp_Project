@@ -36,5 +36,5 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Redirect to login after logging out
+    return redirect('login')  # Redirect to log in after logging out
 
