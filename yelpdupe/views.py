@@ -1,8 +1,11 @@
+from datetime import datetime
+import requests
+from .models import Review
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
-import requests
+
 from yelpdupe.forms import SearchForm
 from django.conf import settings
 
@@ -10,6 +13,37 @@ from django.conf import settings
 def index(request):
     return HttpResponse("Hello. Yelp_Dupe")
 
+# Getter for reviews based on place id
+def get_reviews(place_id):
+    url = url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&key={settings.GOOGLE_PLACES_KEY}"
+    response = requests.get(url)
+    data = response.json()
+
+    # Error Handling
+    #if response.status_code != 200:
+    #   return []
+    return data.get('result', {}).get('reviews', [])
+
+def reviews_viewer(request):
+    place_id = request.GET.get('place_id')
+    reviews = []
+
+    if place_id:
+        reviews = get_reviews(place_id)
+
+        for review in reviews:
+            timestamp = review.get('time')
+            review_time = datetime.utcfromtimestamp(timestamp) if timestamp else None
+
+            Review.objects.create(
+                place_id=place_id,
+                author_name=review.get('author'),
+                rating=review.get('rating'),
+                text=review.get('text'),
+                time=review_time,
+            )
+
+    return render(request, 'yelpdupe/reviews.html', {'reviews': reviews})
 
 #Google Restaurant search implementation
 def search_restaurants(request):

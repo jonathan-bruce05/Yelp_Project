@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+</head>
+<body>
+    <h1>Reviews</h1>
+    <form method="GET">
+        <input type="text" name="place_id" placeholder="Enter Place ID" required>
+        <button type="submit">Get Reviews</button>
+    </form>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.author_name }} (Rating: {{ review.rating }})</strong><br>
+                <p>{{ review.text }}</p>
+                <small>{{ review.time }}</small>
+            </li>
+        {% empty %}
+            <li>No reviews found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
