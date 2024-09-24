@@ -16,7 +16,7 @@ def register(request):
             # Specify the backend to be used for authentication
             backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user, backend=backend)  # Log the user in with the correct backend
-            return redirect('home')  # Redirect to a home page after successful registration
+            return redirect(reverse('yelpdupe:index'))  # Redirect to a home page after successful registration
     else:
         form = RegisterForm()
 
