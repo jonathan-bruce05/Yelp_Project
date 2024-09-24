@@ -17,11 +17,12 @@ def index(request):
 def get_reviews(place_id):
     url = url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&key={settings.GOOGLE_PLACES_KEY}"
     response = requests.get(url)
-    data = response.json()
 
     # Error Handling
-    #if response.status_code != 200:
-    #   return []
+    if response.status_code != 200:
+        return []
+
+    data = response.json()
     return data.get('result', {}).get('reviews', [])
 
 def reviews_viewer(request):
@@ -37,9 +38,9 @@ def reviews_viewer(request):
 
             Review.objects.create(
                 place_id=place_id,
-                author_name=review.get('author'),
-                rating=review.get('rating'),
-                text=review.get('text'),
+                author_name=review.get('author', 'Anonymous'),
+                rating=review.get('rating', 0),
+                text=review.get('text', ''),
                 time=review_time,
             )
 
