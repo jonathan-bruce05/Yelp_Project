@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Search</title>
     <style>
         body {
@@ -9,7 +10,7 @@
             margin: 20px;
         }
         .search-container {
-            max-width: 500px;
+            max-width: 600px;
             margin: auto;
         }
         h1 {
@@ -22,18 +23,16 @@
         }
         input[type="text"],
         input[type="number"],
-        input[type="submit"] {
+        button {
             padding: 10px;
-            margin-bottom: 10px;
+            margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
         button {
-            padding: 10px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
@@ -49,22 +48,36 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="search-container">
         <h1>Restaurant Search</h1>
+
+        <!-- Search Form -->
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}  <!-- Renders the form with proper HTML tags -->
             <button type="submit">Search</button>
         </form>
 
+        <!-- Search Results -->
         {% if results %}
             <h2>Search Results:</h2>
             <ul>
                 {% for place in results %}
-                    <li><strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})</li>
+                    <li>
+                        <strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})
+                        <br>
+                        <a href="{% url 'reviews_viewer' %}?place_id={{ place.place_id }}">View Reviews</a>
+                    </li>
                 {% endfor %}
             </ul>
         {% elif request.method == 'POST' %}

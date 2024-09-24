@@ -44,7 +44,7 @@ def reviews_viewer(request):
                 time=review_time,
             )
 
-    return render(request, 'yelpdupe/reviews.html', {'reviews': reviews})
+    return render(request, 'yelpdupe/reviewsearch.html', {'reviews': reviews})
 
 #Google Restaurant search implementation
 def search_restaurants(request):
