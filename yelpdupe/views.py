@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from yelpdupe.forms import RegisterForm
+from django.urls import reverse
 
 # Define the index view
 def index(request):
@@ -12,8 +13,10 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Log the user in after successful registration
-            return redirect('home')  # Redirect to home after registration
+            # Specify the backend to be used for authentication
+            backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user, backend=backend)  # Log the user in with the correct backend
+            return redirect('home')  # Redirect to a home page after successful registration
     else:
         form = RegisterForm()
 
@@ -28,7 +31,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Redirect to the homepage after login
+                return redirect(reverse('yelpdupe:index'))  # Using the namespace here
     else:
         form = AuthenticationForm()
 
