@@ -18,12 +18,31 @@
             // Retrieve locations from Django template context
             var locations = {{ locations|safe }};
 
+            // Create an info window instance
+            var infoWindow = new google.maps.InfoWindow();
+
             // Loop through the locations and create markers
             locations.forEach(function(location) {
                 var marker = new google.maps.Marker({
                     position: {lat: location.lat, lng: location.lng},
                     map: map,
                     title: location.name
+                });
+
+                // Add a click event listener to open an info window on marker click
+                marker.addListener('click', function() {
+                    // Set the content for the info window with additional details
+                    var contentString = `
+                        <div>
+                            <h3>${location.name}</h3>
+                            <p><strong>Address:</strong> ${location.address}</p>
+                            <p><strong>Rating:</strong> ${location.rating}</p>
+                            <p><strong>Reviews:</strong> ${location.reviews}</p>
+                        </div>
+                    `;
+                    infoWindow.setContent(contentString);
+                    // Open the info window at the marker's position
+                    infoWindow.open(map, marker);
                 });
             });
         }
