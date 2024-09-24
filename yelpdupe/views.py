@@ -46,6 +46,12 @@ def reviews_viewer(request):
 
     return render(request, 'yelpdupe/reviewsearch.html', {'reviews': reviews})
 
+
+def write_review(request):
+    # Find commit to main, figure out user auth confirmation/usrname
+    # Write review
+    # Push to database
+    return render(request, 'yelpdupe/writereview.html')
 #Google Restaurant search implementation
 def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
