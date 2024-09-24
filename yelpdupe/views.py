@@ -14,7 +14,7 @@ def home(request):
 def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
     results = []
-    restaurant_locations = []  # This will store lat/lng/name for the map
+    restaurant_locations = []  # This will store lat/lng/name/details for the map
 
     if request.method == 'POST':  # Check if the form was submitted
         form = SearchForm(request.POST)  # Bind data to the form
@@ -23,7 +23,7 @@ def search_restaurants(request):
             distance = form.cleaned_data['distance']  # Get the user-specified distance
             min_rating = form.cleaned_data['min_rating']  # Get the user-specified minimum rating
 
-            location = '33.7490,-84.3880'  # Currently set to NY city
+            location = '33.7490,-84.3880'  # Currently set to Atlanta
 
             url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             params = {
@@ -42,26 +42,38 @@ def search_restaurants(request):
 
                 # Optional: Sort results by rating descending
                 results.sort(key=lambda x: x.get('rating', 0), reverse=True)
+
                 for result in results:
                     if 'geometry' in result and 'location' in result['geometry']:
                         lat = result['geometry']['location']['lat']
                         lng = result['geometry']['location']['lng']
                         name = result.get('name', 'Unknown Restaurant')
+
+                        # Handle missing data by providing default values
+                        address = result.get('formatted_address', 'No address available')
+                        rating = result.get('rating', 'No rating available')
+                        reviews = result.get('user_ratings_total', 'No reviews available')
+
+                        # Add to restaurant_locations
                         restaurant_locations.append({
                             'name': name,
                             'lat': lat,
-                            'lng': lng
+                            'lng': lng,
+                            'address': address,
+                            'rating': rating,
+                            'reviews': reviews
                         })
             else:
                 results = []  # Handle errors gracefully
-    request.session['restaurant_locations'] = restaurant_locations
+
+    request.session['restaurant_locations'] = restaurant_locations  # Store locations in the session
 
     context = {
         'form': form,  # Pass the form to the template
         'results': results,  # Pass the search results to the template
     }
     return render(request, 'yelpdupe/search.html', context)  # Render the template with context
-    # return redirect('map')
+
 def map_view(request):
     # Example restaurant locations (latitude and longitude)
     locations = request.session.get('restaurant_locations', [])
