@@ -75,28 +75,34 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-.home-page .div {
-  position: absolute;
-  width: 17.6875rem;
-  height: 7.5625rem;
-  top: 2.125rem;
-  left: 70.6875rem;
+.home-page .top-buttons {
+  display: flex;
+  justify-content: flex-end; /* Align to the right side */
+  align-items: center; /* Vertically center the content */
+  gap: 1rem; /* Space between the buttons */
+  width: 99vw; /* Ensure the container stretches to the full width */
+  padding: 3rem;
+  margin: 0;
+  gap: 2rem;
 }
 
 .home-page .log-in {
-  position: absolute;
-  width: 13.5625rem;
-  top: 0.1875rem;
-  left: 20vw;
+  width: 9.125rem;
+  height: 2.8125rem;
+  background-color: #aaaaaa;
+  border: none; /* Remove any default borders */
+  border-radius: 0.3125rem;
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #ffffff;
   font-size: 1.5rem;
-  letter-spacing: 0;
-  line-height: normal;
+  cursor: pointer;
 }
 
-.home-page .sign-up {
+.home-page .sign-up{
   width: 9.125rem;
   height: 2.8125rem;
   background-color: #2e2bb2;
@@ -109,30 +115,36 @@
   font-weight: 400;
   color: #ffffff;
   font-size: 1.5rem;
-  text-align: center;
   cursor: pointer;
-  padding: 0; /* Remove any extra padding */
-  margin: 0; /* Remove any extra margin */
-
-  position: absolute; /* Enable positioning relative to the viewport */
-  left: 27vw; /* Move the button to the far left */
 }
+
+.home-page .review {
+  width: 12.125rem;
+  height: 2.8125rem;
+  background-color: #aaaaaa;
+  border: none; /* Remove any default borders */
+  border-radius: 0.3125rem;
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 
 .home-page .sign-up:hover {
   background-color: #1a1a80; /* Darker color on hover */
 }
 
-.home-page .text-wrapper-4 {
-  position: absolute;
-  width: 11.3125rem;
-  top: 2.4375rem;
-  left: 55.6875rem;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
-  color: #ffffff;
-  font-size: 1.5rem;
-  letter-spacing: 0;
-  line-height: normal;
+.home-page .log-in:hover {
+  background-color: #1a1a80; /* Darker color on hover */
+}
+
+.home-page .review:hover {
+  background-color: #1a1a80; /* Darker color on hover */
 }
 
 .home-page .chomp {

@@ -5,6 +5,8 @@ from django.http import HttpResponse
 import requests
 from yelpdupe.forms import SearchForm
 from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 #
 def home(request):
@@ -54,6 +56,7 @@ def search_restaurants(request):
                         })
             else:
                 results = []  # Handle errors gracefully
+
     request.session['restaurant_locations'] = restaurant_locations
 
     context = {
