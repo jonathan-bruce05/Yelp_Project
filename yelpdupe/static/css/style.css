@@ -25,7 +25,7 @@
 .home-page .overlap-group {
   position: absolute;
   width: 80%;
-  max-width: 825px;
+  max-width: 51.5625rem;
   height: auto;
   top: 30vh;
   left: 30%;
@@ -62,8 +62,8 @@
 
 .home-page .component-wrapper {
   position: absolute;
-  width: 1440px;
-  height: 315px;
+  width: 100vw;
+  height: 19.6875rem;
   top: 0;
   left: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
@@ -71,76 +71,71 @@
 
 .home-page .component {
   position: relative;
-  height: 285px;
+  height: 17.8125rem;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .home-page .div {
   position: absolute;
-  width: 283px;
-  height: 121px;
-  top: 34px;
-  left: 1131px;
+  width: 17.6875rem;
+  height: 7.5625rem;
+  top: 2.125rem;
+  left: 70.6875rem;
 }
 
 .home-page .text-wrapper-2 {
   position: absolute;
-  width: 217px;
-  top: 3px;
+  width: 13.5625rem;
+  top: 0.1875rem;
   left: 0;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 0;
   line-height: normal;
 }
 
-.home-page .rectangle {
-  width: 146px;
-  height: 45px;
-  left: 137px;
+.home-page .sign-up {
+  width: 9.125rem;
+  height: 2.8125rem;
+  left: 33.5625rem;
   background-color: #2e2bb2;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   position: absolute;
   top: 0;
-}
 
-.home-page .text-wrapper-3 {
-  position: absolute;
-  width: 92px;
-  top: 5px;
-  left: 171px;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 0;
-  line-height: normal;
+  line-height: 2.8125rem;
+  text-align: center;
 }
 
 .home-page .text-wrapper-4 {
   position: absolute;
-  width: 181px;
-  top: 39px;
-  left: 891px;
+  width: 11.3125rem;
+  top: 2.4375rem;
+  left: 55.6875rem;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 0;
   line-height: normal;
 }
 
 .home-page .text-wrapper-5 {
   position: absolute;
-  width: 212px;
-  top: 33px;
-  left: 39px;
+  width: 13.25rem;
+  top: 2.0625rem;
+  left: 2.4375rem;
   font-family: "Rubik Dirt", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 48px;
+  font-size: 3.0rem;
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
@@ -148,68 +143,72 @@
 
 .home-page .overlap-group-wrapper {
   position: absolute;
-  width: 798px;
-  height: 75px;
-  top: 588px;
-  left: 337px;
-  box-shadow: 0px 4px 4px #00000040;
+  width: 49.875rem;
+  height: 4.6875rem;
+  top: 36.75rem;
+  left: 21.0625rem;
+  box-shadow: 0.0rem 0.25rem 0.25rem #00000040;
 }
 
 .home-page .overlap-2 {
   position: relative;
-  width: 804px;
-  height: 75px;
+  width: 50.25rem;
+  height: 4.6875rem;
 }
 
-.home-page .rectangle-2 {
-  width: 720px;
-  height: 75px;
-  left: 0;
-  background-color: #ffffff;
-  border-radius: 5px 0px 0px 5px;
-  position: absolute;
-  top: 0;
-}
 
-.home-page .rectangle-3 {
-  width: 76px;
-  height: 75px;
-  left: 720px;
-  background-color: #2e2bb2;
-  border-radius: 0px 5px 5px 0px;
-  position: absolute;
-  top: 0;
-}
 
 .home-page .frame {
   display: flex;
-  width: 798px;
-  height: 75px;
+  width: 49.875rem;
+  height: 4.6875rem;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 10px;
+  gap: 0.625rem;
+  padding: 0.625rem;
   position: absolute;
   top: 0;
-  left: 6px;
+  left: 0.375rem;
 }
 
 .home-page .text-wrapper-6 {
   position: relative;
-  width: 746px;
-  height: 49px;
+  width: 46.625rem;
+  height: 3.0625rem;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #89898a;
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 0;
   line-height: normal;
 }
 
 .home-page .vector {
+  width: 2rem;
+  height: 2rem;
+  display: block; /* Ensure the image displays correctly */
+  position: relative; /* Remove absolute positioning */
+}
+
+.home-page .vector-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 4.75rem;
+  height: 4.6875rem;
+  left: 45.0rem;
+  background-color: #2e2bb2;
+  border-radius: 0.0rem 0.3125rem 0.3125rem 0.0rem;
   position: absolute;
-  width: 32px;
-  height: 32px;
-  top: 22px;
-  left: 744px;
+  top: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.home-page .vector-btn:hover {
+  background-color: #1a1a80; /* Darker color on hover */
 }
