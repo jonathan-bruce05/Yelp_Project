@@ -1,0 +1,24 @@
+# Python bytecode files
+*.pyc
+__pycache__/
+
+# Virtual environment folder
+venv/
+venv2/
+
+# SQLite database files
+*.sqlite3
+
+# Django migrations
+*/migrations/*
+
+# Static and media files (if you generate them)
+staticfiles/
+media/
+
+# Django secret key file (if you have one for production)
+.env
+
+# MacOS specific files (optional)
+.DS_Store
+

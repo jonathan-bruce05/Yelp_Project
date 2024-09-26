@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ restaurant.name }} - Details</title>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap"
+        async defer>
+    </script>
+
+    <script type="text/javascript">
+        function initMap() {
+            // Use the lat and lng passed from Django
+            var restaurantLocation = {
+                lat: {{ lat|floatformat:"6" }},  // Ensure lat is correctly formatted
+                lng: {{ lng|floatformat:"6" }}   // Ensure lng is correctly formatted
+            };
+
+            // Create the map centered at the restaurant's location
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,  // Adjust zoom level to focus on the restaurant
+                center: restaurantLocation
+            });
+
+            // Add a marker for the restaurant
+            var marker = new google.maps.Marker({
+                position: restaurantLocation,
+                map: map,
+                title: "{{ restaurant.name }}"
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>{{ restaurant.name }}</h1>
+    <p><strong>Address:</strong> {{ restaurant.address }}</p>
+    <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
+    <p><strong>Reviews:</strong> {{ restaurant.reviews }}</p>
+
+    <!-- Google Map for Restaurant Location -->
+    <h2>Location</h2>
+    <div id="map" style="height: 400px; width: 100%;"></div>  <!-- Google Map container -->
+
+    <p><a href="{% url 'search_restaurants' %}">Back to search</a></p>
+</body>
+</html>

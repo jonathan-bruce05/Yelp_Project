@@ -1,7 +1,7 @@
 .sign-in {
   display: flex;
   flex-wrap: wrap;
-  height: 1024px;
+  height: 100%;
   align-items: flex-start;
   justify-content: center;
   gap: 47px -157px;
@@ -79,15 +79,18 @@
 }
 
 .sign-in .username {
+  display: flex;
   width: 320px;
-  height: 20px;
+  height: 50px;
   padding: 0px 10px;
+  align-items: center;
+  gap: 10px;
   top: 8px;
   left: 10px;
   background-color: #f4f3f3;
   border-radius: 5px;
-  border: 1px solid;
-  border-color: #89898a;
+  border: 1px solid var(--collection-1-medium-grey, #89898A);
+  background: var(--collection-1-off-white, #F4F3F3);
   position: relative;
   font-family: "Roboto", Helvetica;
   font-weight: 400;
@@ -99,16 +102,19 @@
 }
 
 .sign-in .password {
+  display: flex;
   width: 320px;
-  height: 20px;
+  height: 50px;
   padding: 0px 10px;
+  align-items: center;
+  gap: 10px;
   position: relative;
   top: 10px;
   left: 10px;
   background-color: #f4f3f3;
   border-radius: 5px;
-  border: 1px solid;
-  border-color: #89898a;
+  border: 1px solid var(--collection-1-medium-grey, #89898A);
+  background: var(--collection-1-off-white, #F4F3F3);
   font-family: "Roboto", Helvetica;
   font-weight: 400;
   color: #89898a;

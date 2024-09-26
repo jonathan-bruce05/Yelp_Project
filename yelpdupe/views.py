@@ -1,4 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
+from yelpdupe.forms import RegisterForm
+from django.urls import reverse
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
@@ -20,6 +24,8 @@ def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
     results = []
     restaurant_locations = []  # This will store lat/lng/name for the map
+    # Set a default location (e.g., Atlanta's coordinates)
+    location = '33.7490,-84.3880'  # Atlanta, GA coordinates as default center
 
     if request.method == 'POST':  # Check if the form was submitted
         form = SearchForm(request.POST)  # Bind data to the form
@@ -27,8 +33,6 @@ def search_restaurants(request):
             query = form.cleaned_data['query']  # Get the cleaned data from the form
             distance = form.cleaned_data['distance'] or 5000  # Get the user-specified distance
             min_rating = form.cleaned_data['min_rating'] or 2 # Get the user-specified minimum rating
-
-            location = '33.7490,-84.3880'  # Currently set to NY city
 
             url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             params = {
@@ -52,11 +56,19 @@ def search_restaurants(request):
                         lat = result['geometry']['location']['lat']
                         lng = result['geometry']['location']['lng']
                         name = result.get('name', 'Unknown Restaurant')
-                        restaurant_locations.append({
-                            'name': name,
-                            'lat': lat,
-                            'lng': lng
-                        })
+                        place_id = result.get('place_id', None)  # Get the place_id for linking
+
+                        # Only add the restaurant if a place_id is available
+                        if place_id:
+                            restaurant_locations.append({
+                                'name': name,
+                                'lat': lat,
+                                'lng': lng,
+                                'place_id': place_id,  # Make sure place_id is included
+                                'address': result.get('formatted_address', 'No address available'),
+                                'rating': result.get('rating', 'No rating available'),
+                                'reviews': result.get('user_ratings_total', 'No reviews available')
+                            })
             else:
                 results = []  # Handle errors gracefully
 
@@ -77,3 +89,65 @@ def map_view(request):
     }
 
     return render(request, 'yelpdupe/map.html', context)
+
+
+def restaurant_details(request, place_id):
+    # Get restaurant details from the session (or database if needed)
+    restaurant = None
+    restaurant_locations = request.session.get('restaurant_locations', [])
+
+    # Find restaurant by place_id in the session
+    for location in restaurant_locations:
+        if location['place_id'] == place_id:
+            restaurant = location
+            break
+
+    if not restaurant:
+        return HttpResponse("Restaurant not found", status=404)
+
+    # Pass the restaurant's lat/lng and other details to the template
+    context = {
+        'restaurant': restaurant,
+        'lat': restaurant['lat'],  # Pass the latitude
+        'lng': restaurant['lng'],  # Pass the longitude
+        'GOOGLE_MAPS_API_KEY': settings.GOOGLE_PLACES_KEY
+    }
+    return render(request, 'yelpdupe/restaurant_detail.html', context)
+
+
+# Define the index view
+def index(request):
+    return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Specify the backend to be used for authentication
+            backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user, backend=backend)  # Log the user in with the correct backend
+            return redirect(reverse('yelpdupe:index'))  # Redirect to a home page after successful registration
+    else:
+        form = RegisterForm()
+
+    return render(request, 'yelpdupe/register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect(reverse('yelpdupe:index'))  # Using the namespace here
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'yelpdupe/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirect to log in after logging out
