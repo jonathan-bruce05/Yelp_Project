@@ -8,4 +8,5 @@ urlpatterns = [
     path('search/', search_restaurants, name='search_restaurants'),
     path('map/', map_view, name='map'),
     path('', home, name='home'),
+    path('signin/', views.log_in, name='signIn'),
 ]

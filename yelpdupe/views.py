@@ -12,6 +12,9 @@ from django.urls import reverse
 def home(request):
     return render(request, 'yelpdupe/home.html')
 
+def log_in(request):
+    return render(request, 'yelpdupe/signIn.html')
+
 #Google Restaurant search implementation
 def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
