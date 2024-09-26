@@ -1,12 +1,11 @@
 from . import views
 from django.urls import path
-from .views import register, login_view, logout_view
+from .views import map_view, search_restaurants, home
 
-app_name = "yelpdupe"
+# app_name = "YelpDupe"
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path('register/', register, name='register'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
+    path('search/', search_restaurants, name='search_restaurants'),
+    path('map/', map_view, name='map'),
+    path('', home, name='home'),
 ]
