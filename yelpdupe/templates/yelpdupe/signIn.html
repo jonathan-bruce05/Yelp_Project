@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      {% load static %}
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/globals.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/signIn-styleGuide.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/signIn.css' %}" />
+  </head>
+  <body>
+    <div class="sign-in">
+      <img class="rectangle" src="{% static  'img/rectangle-12.png' %}" alt="white space"/>
+      <div class="component">
+        <div class="frame">
+          <div class="div-wrapper"><div class="text-wrapper">Welcome back.</div></div>
+        </div>
+        <div class="div">
+          <div class="textboxes"><input class="username" /></div>
+          <div class="textboxes"><input class="password" /></div>
+        </div>
+        <div class="frame-2"><div class="text-wrapper-2">Log In</div></div>
+        <div class="frame-3">
+          <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
+          <div class="text-wrapper-3">or</div>
+          <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
+        </div>
+        <div class="frame-4">
+          <div class="continue-with-google">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Continue with Google</div>
+          <img class="image" src="{% static 'img/image-2-1.png' %}" alt="google"/>
+        </div>
+        <p class="new-to-chomp-sign-up">
+          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> Sign up</span>
+        </p>
+      </div>
+      <div class="navbar-component">
+        <div class="frame-5">
+          <div class="text-wrapper-5">chomp</div>
+          <div class="frame-6">
+            <div class="text-wrapper-6">Write a Review</div>
+            <div class="frame-7"><div class="text-wrapper-7">Log In</div></div>
+            <div class="frame-8"><div class="text-wrapper-2">Sign Up</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

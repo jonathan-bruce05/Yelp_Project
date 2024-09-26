@@ -1,0 +1,342 @@
+.sign-in {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 47px -157px;
+  position: relative;
+  background-color: #f3f2f2;
+  overflow: hidden;
+}
+
+.sign-in .rectangle {
+  position: relative;
+  width: 1440px;
+  height: 101px;
+  margin-bottom: -178px;
+  margin-left: -302px;
+}
+
+.sign-in .component {
+  display: flex;
+  flex-direction: column;
+  width: 317px;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+}
+
+.sign-in .frame {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .div-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex: 1;
+  flex-grow: 1;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.sign-in .div {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  margin-left: -11.5px;
+  margin-right: -11.5px;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .textboxes {
+  position: relative;
+  width: 340px;
+  flex: 0 0 auto;
+}
+
+.sign-in .username {
+  display: flex;
+  width: 320px;
+  height: 50px;
+  padding: 0px 10px;
+  align-items: center;
+  gap: 10px;
+  top: 8px;
+  left: 10px;
+  background-color: #f4f3f3;
+  border-radius: 5px;
+  border: 1px solid var(--collection-1-medium-grey, #89898A);
+  background: var(--collection-1-off-white, #F4F3F3);
+  position: relative;
+  font-family: "Roboto", Helvetica;
+  font-weight: 400;
+  color: #89898a;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .password {
+  display: flex;
+  width: 320px;
+  height: 50px;
+  padding: 0px 10px;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  background-color: #f4f3f3;
+  border-radius: 5px;
+  border: 1px solid var(--collection-1-medium-grey, #89898A);
+  background: var(--collection-1-off-white, #F4F3F3);
+  font-family: "Roboto", Helvetica;
+  font-weight: 400;
+  color: #89898a;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .frame-2 {
+  display: flex;
+  width: 320px;
+  height: 50px;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  margin-left: -1.5px;
+  margin-right: -1.5px;
+  background-color: #2e2bb2;
+  border-radius: 5px;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .frame-3 {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .line {
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  height: 1px;
+  object-fit: cover;
+}
+
+.sign-in .text-wrapper-3 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  color: #686869;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.sign-in .frame-4 {
+  display: flex;
+  width: 320px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  margin-left: -1.5px;
+  margin-right: -1.5px;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+
+.sign-in .continue-with-google {
+  position: relative;
+  width: fit-content;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #1e1e1e;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .image {
+  position: absolute;
+  width: 28px;
+  height: 37px;
+  top: 7px;
+  left: 55px;
+  object-fit: cover;
+}
+
+.sign-in .new-to-chomp-sign-up {
+  position: relative;
+  align-self: stretch;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: transparent;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.sign-in .span {
+  color: #1e1e1e;
+}
+
+.sign-in .text-wrapper-4 {
+  color: #2e2bb2;
+}
+
+.sign-in .navbar-component {
+  display: flex;
+  width: 1440px;
+  height: 83px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 105px;
+  padding: 20px 20px 21px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #1e1e1e;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.sign-in .frame-5 {
+  display: flex;
+  width: 1400px;
+  justify-content: center;
+  gap: 865px;
+  padding: 10px 20px;
+  margin-bottom: -21px;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Rubik Dirt", Helvetica;
+  font-weight: 400;
+  color: #1e1e1e;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .frame-6 {
+  display: inline-flex;
+  height: 41px;
+  justify-content: flex-end;
+  gap: 40px;
+  flex: 0 0 auto;
+  opacity: 0;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .text-wrapper-6 {
+  position: relative;
+  width: fit-content;
+  text-shadow: 0px 4px 4px #00000040;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .frame-7 {
+  display: inline-flex;
+  justify-content: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  align-items: center;
+  position: relative;
+}
+
+.sign-in .text-wrapper-7 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  text-shadow: 0px 4px 4px #00000040;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-in .frame-8 {
+  display: flex;
+  width: 106px;
+  height: 38px;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #000000;
+  box-shadow: 0px 4px 4px #00000040;
+  align-items: center;
+  position: relative;
+}
