@@ -17,7 +17,7 @@
         </div>
 
 
-
+        <!-- username and passwords boxes -->
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="div">
@@ -33,9 +33,7 @@
                     <div class="text-wrapper-2">Log In</div>
                 </button>
             </div>
-
         </form>
-
 
 
 
@@ -53,12 +51,12 @@
 
 
         <p class="new-to-chomp-sign-up">
-          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> <a href="{% url 'register' %}">Sign up</a></span>
+          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> <a href="{% url 'register' %}" >Sign up</a></span>
         </p>
       </div>
       <div class="navbar-component">
         <div class="frame-5">
-          <div class="text-wrapper-5">chomp</div>
+          <div class="text-wrapper-5"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
           <div class="frame-6">
             <div class="text-wrapper-6">Write a Review</div>
             <div class="frame-7"><div class="text-wrapper-7">Log In</div></div>

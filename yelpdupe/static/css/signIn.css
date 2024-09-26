@@ -251,6 +251,17 @@
   line-height: normal;
 }
 
+.sign-in .chomp-link {
+    text-decoration: none;  /* Removes underline */
+    outline: none;  /* Removes focus outline */
+    color: inherit;  /* Keep the original color */
+}
+
+.sign-in .chomp-link:focus, .chomp-link:hover {
+    text-decoration: none;  /* No underline on hover */
+    outline: none;  /* No focus outline */
+}
+
 .sign-in .span {
   color: #1e1e1e;
 }
