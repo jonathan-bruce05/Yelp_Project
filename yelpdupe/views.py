@@ -92,7 +92,7 @@ def map_view(request):
 
 
 def restaurant_details(request, place_id):
-    # You can fetch additional details using the Google Places API or your database
+    # Get restaurant details from the session (or database if needed)
     restaurant = None
     restaurant_locations = request.session.get('restaurant_locations', [])
 
@@ -105,10 +105,16 @@ def restaurant_details(request, place_id):
     if not restaurant:
         return HttpResponse("Restaurant not found", status=404)
 
+    # Pass the restaurant's lat/lng and other details to the template
     context = {
-        'restaurant': restaurant
+        'restaurant': restaurant,
+        'lat': restaurant['lat'],  # Pass the latitude
+        'lng': restaurant['lng'],  # Pass the longitude
+        'GOOGLE_MAPS_API_KEY': settings.GOOGLE_PLACES_KEY
     }
     return render(request, 'yelpdupe/restaurant_detail.html', context)
+
+
 # Define the index view
 def index(request):
     return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template

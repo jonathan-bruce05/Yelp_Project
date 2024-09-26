@@ -9,13 +9,15 @@
 
     <script type="text/javascript">
         function initMap() {
+            // Create the map centered at a default location (e.g., Atlanta, GA)
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
                 center: { lat: 33.7490, lng: -84.3880 }  // Default center (Atlanta)
             });
 
             // Retrieve locations from Django template context
-            var locations = {{ locations|safe }};
+            var locations = {{ locations|safe }};  // Load locations data from the context
+
             console.log("Locations:", locations);  // Debug to check if locations are loaded correctly
 
             var infoWindow = new google.maps.InfoWindow();
@@ -24,11 +26,12 @@
             if (locations.length > 0) {
                 locations.forEach(function(location) {
                     var marker = new google.maps.Marker({
-                        position: { lat: location.lat, lng: location.lng },
+                        position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },  // Parse lat/lng as float
                         map: map,
                         title: location.name
                     });
 
+                    // Add click event listener to show info window
                     marker.addListener('click', function() {
                         var contentString = `
                             <div>
@@ -36,7 +39,7 @@
                                 <p><strong>Address:</strong> ${location.address || 'No address available'}</p>
                                 <p><strong>Rating:</strong> ${location.rating || 'No rating available'}</p>
                                 <p><strong>Reviews:</strong> ${location.reviews || 'No reviews available'}</p>
-                                <a href="/yelpdupe/restaurant/${location.place_id}/">View Details</a>
+                                <a href="/yelpdupe/restaurant/${location.place_id}/">View Details</a>  <!-- Link to restaurant details -->
                             </div>
                         `;
                         infoWindow.setContent(contentString);
@@ -51,6 +54,7 @@
 </head>
 <body>
     <h1>Restaurant Locations</h1>
+    <!-- Google Map container -->
     <div id="map" style="height: 500px; width: 100%;"></div>
 </body>
 </html>
