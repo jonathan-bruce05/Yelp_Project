@@ -16,9 +16,6 @@
         h1 {
             text-align: center;
         }
-        .search-container {
-            margin-bottom: 20px;
-        }
         input[type="text"],
         button {
             padding: 10px;
@@ -48,17 +45,46 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a, .pagination span {
+            margin: 0 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .pagination span {
+            background-color: #007BFF;
+            color: white;
+        }
+        .pagination a:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        form {
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Find Reviews</h1>
+        <h1>Reviews</h1>
 
         <!-- Display reviews -->
         <div class="reviews-container">
             <h2>Reviews:</h2>
             <ul>
-                {% for review in reviews %}
+                {% for review in page_obj %}
                     <li>
                         <strong>{{ review.author_name }} (Rating: {{ review.rating }})</strong><br>
                         <p>{{ review.text }}</p>
@@ -69,6 +95,35 @@
                 {% endfor %}
             </ul>
         </div>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?place_id={{ place_id }}&page=1">&laquo; First</a>
+                <a href="?place_id={{ place_id }}&page={{ page_obj.previous_page_number }}">Previous</a>
+            {% else %}
+                <span>&laquo; First</span>
+                <span>Previous</span>
+            {% endif %}
+
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?place_id={{ place_id }}&page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?place_id={{ place_id }}&page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% else %}
+                <span>Next</span>
+                <span>Last &raquo;</span>
+            {% endif %}
+        </div>
+
+        <!-- Review submission form -->
+        <h2>Submit Your Review</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Review</button>
+        </form>
     </div>
 </body>
 </html>

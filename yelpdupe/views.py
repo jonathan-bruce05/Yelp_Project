@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.core.paginator import Paginator
 import requests
 from .models import Review
 from django.shortcuts import render, redirect
@@ -6,7 +8,7 @@ from django.http import HttpResponse
 
 #Imports used for Restaurant search
 
-from yelpdupe.forms import SearchForm
+from yelpdupe.forms import SearchForm, ReviewForm
 from django.conf import settings
 
 #
@@ -27,31 +29,45 @@ def get_reviews(place_id):
 
 def reviews_viewer(request):
     place_id = request.GET.get('place_id')
-    reviews = []
-
-    if place_id:
-        reviews = get_reviews(place_id)
-
-        for review in reviews:
-            timestamp = review.get('time')
-            review_time = datetime.utcfromtimestamp(timestamp) if timestamp else None
-
-            Review.objects.create(
-                place_id=place_id,
-                author_name=review.get('author', 'Anonymous'),
-                rating=review.get('rating', 0),
-                text=review.get('text', ''),
-                time=review_time,
-            )
-
-    return render(request, 'yelpdupe/reviewsearch.html', {'reviews': reviews})
+    google_reviews = get_reviews(place_id) if place_id else []
+    user_reviews = Review.objects.filter(place_id=place_id)
+    # display time
+    for review in google_reviews:
+        timestamp = review.get('time')
+        review_time = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S') if timestamp else None
 
 
-def write_review(request):
+    # Review form
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.place_id = place_id
+            new_review.time = datetime.now()
+            new_review.save()
+            return redirect(request.path_info + f'?place_id={place_id}') #reloads page
+    else:
+        form = ReviewForm()
+
+    # combines reviews into 1 list
+    all_reviews = list(google_reviews) + list(user_reviews)
+
+    # Pageifies reviews
+    paginator = Paginator(all_reviews, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'yelpdupe/reviewsearch.html', {
+        'page_obj': page_obj,
+        'place_id': place_id,
+        'form': form,
+    })
+
     # Find commit to main, figure out user auth confirmation/usrname
     # Write review
     # Push to database
-    return render(request, 'yelpdupe/writereview.html')
+
+
 #Google Restaurant search implementation
 def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
