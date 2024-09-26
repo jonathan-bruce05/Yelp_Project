@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path, include
-from .views import map_view, search_restaurants, home, register, login_view, logout_view
+from .views import map_view, search_restaurants, home, register, login_view, logout_view, reset_password, search_username
 
 # app_name = "YelpDupe"
 
@@ -13,6 +13,9 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
 
     path('accounts/', include('allauth.urls')),
+
+    path('reset_password/', views.search_username, name='search_username'),
+    path('reset_password/<str:username>/', views.reset_password, name='reset_password'),
 
     path('restaurant/<str:place_id>/', views.restaurant_details, name='restaurant_details'),
 ]

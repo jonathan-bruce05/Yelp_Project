@@ -270,6 +270,27 @@
   color: #2e2bb2;
 }
 
+.sign-in .reset-password {
+  position: relative;
+  align-self: stretch;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #aaaaaa;  /* Use the same color as the "Sign up" link */
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.sign-in .reset-password a {
+  text-decoration: none;
+  color: inherit;  /* Inherit the color defined in the parent */
+}
+
+.sign-in .reset-password a:hover {
+    color: #89898AFF; /* Darker shade on hover */
+    transition: text-color 1s ease; /* Smooth transition effect */
+}
 .sign-in .navbar-component {
   display: flex;
   width: 1440px;

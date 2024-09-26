@@ -17,6 +17,12 @@ from django.contrib.auth import authenticate, login, logout
 from yelpdupe.forms import RegisterForm
 from django.urls import reverse
 
+#password change
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from .forms import UsernameForm
+
 #
 def home(request):
     return render(request, 'yelpdupe/home.html')
@@ -191,3 +197,42 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to log in after logging out
+
+# Step 2a: View for searching username and handling password reset
+def search_username(request):
+    if request.method == 'POST':
+        form = UsernameForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            try:
+                user = User.objects.get(username=username)
+                # Redirect to the reset password form
+                return redirect('reset_password', username=username)
+            except User.DoesNotExist:
+                messages.error(request, 'Username not found.')
+    else:
+        form = UsernameForm()
+
+    return render(request, 'yelpdupe/search_username.html', {'form': form})
+
+# Step 2b: Password reset view
+def reset_password(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        messages.error(request, 'Invalid username.')
+        return redirect('search_username')
+
+    if request.method == 'POST':
+        new_password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if new_password == confirm_password:
+            user.password = make_password(new_password)
+            user.save()
+            messages.success(request, 'Password updated successfully.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Passwords do not match.')
+
+    return render(request, 'yelpdupe/reset_password.html', {'username': username})
