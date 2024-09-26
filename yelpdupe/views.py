@@ -24,6 +24,8 @@ def search_restaurants(request):
     form = SearchForm()  # Create an empty form instance
     results = []
     restaurant_locations = []  # This will store lat/lng/name for the map
+    # Set a default location (e.g., Atlanta's coordinates)
+    location = '33.7490,-84.3880'  # Atlanta, GA coordinates as default center
 
     if request.method == 'POST':  # Check if the form was submitted
         form = SearchForm(request.POST)  # Bind data to the form
@@ -54,11 +56,19 @@ def search_restaurants(request):
                         lat = result['geometry']['location']['lat']
                         lng = result['geometry']['location']['lng']
                         name = result.get('name', 'Unknown Restaurant')
-                        restaurant_locations.append({
-                            'name': name,
-                            'lat': lat,
-                            'lng': lng
-                        })
+                        place_id = result.get('place_id', None)  # Get the place_id for linking
+
+                        # Only add the restaurant if a place_id is available
+                        if place_id:
+                            restaurant_locations.append({
+                                'name': name,
+                                'lat': lat,
+                                'lng': lng,
+                                'place_id': place_id,  # Make sure place_id is included
+                                'address': result.get('formatted_address', 'No address available'),
+                                'rating': result.get('rating', 'No rating available'),
+                                'reviews': result.get('user_ratings_total', 'No reviews available')
+                            })
             else:
                 results = []  # Handle errors gracefully
 
@@ -80,6 +90,25 @@ def map_view(request):
 
     return render(request, 'yelpdupe/map.html', context)
 
+
+def restaurant_details(request, place_id):
+    # You can fetch additional details using the Google Places API or your database
+    restaurant = None
+    restaurant_locations = request.session.get('restaurant_locations', [])
+
+    # Find restaurant by place_id in the session
+    for location in restaurant_locations:
+        if location['place_id'] == place_id:
+            restaurant = location
+            break
+
+    if not restaurant:
+        return HttpResponse("Restaurant not found", status=404)
+
+    context = {
+        'restaurant': restaurant
+    }
+    return render(request, 'yelpdupe/restaurant_detail.html', context)
 # Define the index view
 def index(request):
     return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template

@@ -9,42 +9,43 @@
 
     <script type="text/javascript">
         function initMap() {
-            // Create the map centered at a default location (e.g., Atlanta, GA)
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
-                center: {lat: 33.7490, lng: -84.3880}  // Default center (Atlanta)
+                center: { lat: 33.7490, lng: -84.3880 }  // Default center (Atlanta)
             });
 
             // Retrieve locations from Django template context
             var locations = {{ locations|safe }};
+            console.log("Locations:", locations);  // Debug to check if locations are loaded correctly
 
-            // Create an info window instance
             var infoWindow = new google.maps.InfoWindow();
 
-            // Loop through the locations and create markers
-            locations.forEach(function(location) {
-                var marker = new google.maps.Marker({
-                    position: {lat: location.lat, lng: location.lng},
-                    map: map,
-                    title: location.name
-                });
+            // If locations exist, create markers for each restaurant
+            if (locations.length > 0) {
+                locations.forEach(function(location) {
+                    var marker = new google.maps.Marker({
+                        position: { lat: location.lat, lng: location.lng },
+                        map: map,
+                        title: location.name
+                    });
 
-                // Add a click event listener to open an info window on marker click
-                marker.addListener('click', function() {
-                    // Set the content for the info window with additional details
-                    var contentString = `
-                        <div>
-                            <h3>${location.name}</h3>
-                            <p><strong>Address:</strong> ${location.address}</p>
-                            <p><strong>Rating:</strong> ${location.rating}</p>
-                            <p><strong>Reviews:</strong> ${location.reviews}</p>
-                        </div>
-                    `;
-                    infoWindow.setContent(contentString);
-                    // Open the info window at the marker's position
-                    infoWindow.open(map, marker);
+                    marker.addListener('click', function() {
+                        var contentString = `
+                            <div>
+                                <h3>${location.name}</h3>
+                                <p><strong>Address:</strong> ${location.address || 'No address available'}</p>
+                                <p><strong>Rating:</strong> ${location.rating || 'No rating available'}</p>
+                                <p><strong>Reviews:</strong> ${location.reviews || 'No reviews available'}</p>
+                                <a href="/yelpdupe/restaurant/${location.place_id}/">View Details</a>
+                            </div>
+                        `;
+                        infoWindow.setContent(contentString);
+                        infoWindow.open(map, marker);
+                    });
                 });
-            });
+            } else {
+                console.log("No locations to display");
+            }
         }
     </script>
 </head>

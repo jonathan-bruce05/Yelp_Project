@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ restaurant.name }} - Details</title>
+</head>
+<body>
+    <h1>{{ restaurant.name }}</h1>
+    <p><strong>Address:</strong> {{ restaurant.address }}</p>
+    <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
+    <p><strong>Reviews:</strong> {{ restaurant.reviews }}</p>
+    <p><a href="{% url 'search_restaurants' %}">Back to search</a></p>
+</body>
+</html>
