@@ -2,6 +2,7 @@
 <html>
   <head>
       {% load static %}
+      {%  load socialaccount %}
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{% static 'css/globals.css' %}" />
     <link rel="stylesheet" href="{% static 'css/signIn-styleGuide.css' %}" />
@@ -33,20 +34,6 @@
                 </button>
             </div>
 
-            {% if form.errors %}
-            <div class="errors">
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ field.label }}: {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
         </form>
 
 
@@ -57,12 +44,16 @@
           <div class="text-wrapper-3">or</div>
           <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
         </div>
-        <div class="frame-4">
-          <div class="continue-with-google">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Continue with Google</div>
-          <img class="image" src="{% static 'img/image-2-1.png' %}" alt="google"/>
-        </div>
+
+        <a href="{% provider_login_url 'google' %}" class="google-login-button">
+            <button type="submit" class="frame-4">
+                <div class="continue-with-google">Continue with Google</div>
+            </button>
+        </a>
+
+
         <p class="new-to-chomp-sign-up">
-          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> Sign up</span>
+          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> <a href="{% url 'register' %}">Sign up</a></span>
         </p>
       </div>
       <div class="navbar-component">

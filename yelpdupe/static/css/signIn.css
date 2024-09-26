@@ -126,9 +126,23 @@
   margin-left: -1.5px;
   margin-right: -1.5px;
   background-color: #2e2bb2;
+  border: none;
   border-radius: 5px;
   align-items: center;
   position: relative;
+}
+
+/* Button Hover Effect */
+.sign-in .frame-2:hover {
+    background-color: #1a1a80; /* Darker shade on hover */
+    transition: background-color 1s ease; /* Smooth transition effect */
+}
+
+/* Button Active (Click) Effect */
+.sign-in .frame-2:active {
+    background-color: #0f0f6b; /* Darker color on click */
+    transform: scale(0.95); /* Shrink effect on click */
+    transition: transform 0.1s ease; /* Quick smooth transition */
 }
 
 .sign-in .text-wrapper-2 {
@@ -186,8 +200,23 @@
   margin-left: -1.5px;
   margin-right: -1.5px;
   background-color: #d9d9d9;
+  border: none;
   border-radius: 5px;
 }
+
+/* Button Hover Effect */
+.sign-in .frame-4:hover {
+    background-color: #89898AFF; /* Darker shade on hover */
+    transition: background-color 1s ease; /* Smooth transition effect */
+}
+
+/* Button Active (Click) Effect */
+.sign-in .frame-4:active {
+    background-color: #89898AFF; /* Darker color on click */
+    transform: scale(0.95); /* Shrink effect on click */
+    transition: transform 0.1s ease; /* Quick smooth transition */
+}
+
 
 .sign-in .continue-with-google {
   position: relative;
@@ -202,12 +231,12 @@
 }
 
 .sign-in .image {
-  position: absolute;
+  position: relative;
   width: 28px;
-  height: 37px;
-  top: 7px;
+  height: 33px;
+  top: 33px;
   left: 55px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .sign-in .new-to-chomp-sign-up {
