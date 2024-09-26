@@ -64,7 +64,7 @@
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
+  gap: 33px;
   flex: 0 0 auto;
   margin-left: -11.5px;
   margin-right: -11.5px;
@@ -72,21 +72,15 @@
   position: relative;
 }
 
-.sign-in .textboxes {
-  position: relative;
-  width: 340px;
-  flex: 0 0 auto;
-}
 
 .sign-in .username {
   display: flex;
   width: 320px;
   height: 50px;
-  padding: 0px 10px;
+  padding: 0 10px;
   align-items: center;
-  gap: 10px;
+  gap: 55px;
   top: 8px;
-  left: 10px;
   background-color: #f4f3f3;
   border-radius: 5px;
   border: 1px solid var(--collection-1-medium-grey, #89898A);
@@ -105,12 +99,10 @@
   display: flex;
   width: 320px;
   height: 50px;
-  padding: 0px 10px;
+  padding: 0 10px;
   align-items: center;
   gap: 10px;
   position: relative;
-  top: 10px;
-  left: 10px;
   background-color: #f4f3f3;
   border-radius: 5px;
   border: 1px solid var(--collection-1-medium-grey, #89898A);
@@ -134,9 +126,23 @@
   margin-left: -1.5px;
   margin-right: -1.5px;
   background-color: #2e2bb2;
+  border: none;
   border-radius: 5px;
   align-items: center;
   position: relative;
+}
+
+/* Button Hover Effect */
+.sign-in .frame-2:hover {
+    background-color: #1a1a80; /* Darker shade on hover */
+    transition: background-color 1s ease; /* Smooth transition effect */
+}
+
+/* Button Active (Click) Effect */
+.sign-in .frame-2:active {
+    background-color: #0f0f6b; /* Darker color on click */
+    transform: scale(0.95); /* Shrink effect on click */
+    transition: transform 0.1s ease; /* Quick smooth transition */
 }
 
 .sign-in .text-wrapper-2 {
@@ -194,8 +200,23 @@
   margin-left: -1.5px;
   margin-right: -1.5px;
   background-color: #d9d9d9;
+  border: none;
   border-radius: 5px;
 }
+
+/* Button Hover Effect */
+.sign-in .frame-4:hover {
+    background-color: #89898AFF; /* Darker shade on hover */
+    transition: background-color 1s ease; /* Smooth transition effect */
+}
+
+/* Button Active (Click) Effect */
+.sign-in .frame-4:active {
+    background-color: #89898AFF; /* Darker color on click */
+    transform: scale(0.95); /* Shrink effect on click */
+    transition: transform 0.1s ease; /* Quick smooth transition */
+}
+
 
 .sign-in .continue-with-google {
   position: relative;
@@ -210,12 +231,12 @@
 }
 
 .sign-in .image {
-  position: absolute;
+  position: relative;
   width: 28px;
-  height: 37px;
-  top: 7px;
+  height: 33px;
+  top: 33px;
   left: 55px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .sign-in .new-to-chomp-sign-up {
@@ -228,6 +249,17 @@
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
+}
+
+.sign-in .chomp-link {
+    text-decoration: none;  /* Removes underline */
+    outline: none;  /* Removes focus outline */
+    color: inherit;  /* Keep the original color */
+}
+
+.sign-in .chomp-link:focus, .chomp-link:hover {
+    text-decoration: none;  /* No underline on hover */
+    outline: none;  /* No focus outline */
 }
 
 .sign-in .span {

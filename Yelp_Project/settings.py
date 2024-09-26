@@ -66,7 +66,7 @@ ROOT_URLCONF = 'Yelp_Project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': []
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,9 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # New settings for authentication and social login
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/yelpdupe/login/'
-
 
 # If using allauth for social login
 AUTHENTICATION_BACKENDS = [
@@ -161,10 +160,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {'access_type': 'online'},
         'CLIENT_ID': '858199723942-tn4k3aqikaaqonn41dj66r7ksrn8vuae.apps.googleusercontent.com',
         'SECRET': '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',
-    }
+    },
    # 'apple': {
         # Apple-specific configs (optional)
    # }
 }
-
-

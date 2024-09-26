@@ -2,6 +2,7 @@
 <html>
   <head>
       {% load static %}
+      {%  load socialaccount %}
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{% static 'css/globals.css' %}" />
     <link rel="stylesheet" href="{% static 'css/signIn-styleGuide.css' %}" />
@@ -14,27 +15,48 @@
         <div class="frame">
           <div class="div-wrapper"><div class="text-wrapper">Welcome back.</div></div>
         </div>
-        <div class="div">
-          <div class="textboxes"><input class="username" /></div>
-          <div class="textboxes"><input class="password" /></div>
-        </div>
-        <div class="frame-2"><div class="text-wrapper-2">Log In</div></div>
+
+
+        <!-- username and passwords boxes -->
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="div">
+                <!-- Username Field -->
+                    <input type="text" name="username" class="username" placeholder="Username" >
+
+                <!-- Password Field -->
+                    <input type="password" name="password" class="password" placeholder="Password" required>
+
+
+                <!-- Login Button -->
+                <button type="submit" class="frame-2">
+                    <div class="text-wrapper-2">Log In</div>
+                </button>
+            </div>
+        </form>
+
+
+
         <div class="frame-3">
           <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
           <div class="text-wrapper-3">or</div>
           <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
         </div>
-        <div class="frame-4">
-          <div class="continue-with-google">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Continue with Google</div>
-          <img class="image" src="{% static 'img/image-2-1.png' %}" alt="google"/>
-        </div>
+
+        <a href="{% provider_login_url 'google' %}" class="google-login-button">
+            <button type="submit" class="frame-4">
+                <div class="continue-with-google">Continue with Google</div>
+            </button>
+        </a>
+
+
         <p class="new-to-chomp-sign-up">
-          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> Sign up</span>
+          <span class="span">New to chomp?</span> <span class="text-wrapper-4"> <a href="{% url 'register' %}" >Sign up</a></span>
         </p>
       </div>
       <div class="navbar-component">
         <div class="frame-5">
-          <div class="text-wrapper-5">chomp</div>
+          <div class="text-wrapper-5"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
           <div class="frame-6">
             <div class="text-wrapper-6">Write a Review</div>
             <div class="frame-7"><div class="text-wrapper-7">Log In</div></div>

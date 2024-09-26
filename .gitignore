@@ -1,6 +1,9 @@
 # Python bytecode files
+# Byte-compiled / optimized / DLL files
 *.pyc
 __pycache__/
+*.py[cod]
+*$py.class
 
 # Virtual environment folder
 venv/
@@ -8,17 +11,43 @@ venv2/
 
 # SQLite database files
 *.sqlite3
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
 
 # Django migrations
 */migrations/*
+# Jupyter notebook
+.ipynb_checkpoints/
 
 # Static and media files (if you generate them)
 staticfiles/
 media/
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
 
 # Django secret key file (if you have one for production)
 .env
+# VSCode settings
+.vscode/
 
 # MacOS specific files (optional)
-.DS_Store
+# PyCharm settings
+.idea/
 
+# MacOS files
+.DS_Store
