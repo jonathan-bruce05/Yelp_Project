@@ -14,11 +14,44 @@
         <div class="frame">
           <div class="div-wrapper"><div class="text-wrapper">Welcome back.</div></div>
         </div>
-        <div class="div">
-          <div class="textboxes"><input class="username" /></div>
-          <div class="textboxes"><input class="password" /></div>
-        </div>
-        <div class="frame-2"><div class="text-wrapper-2">Log In</div></div>
+
+
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="div">
+                <!-- Username Field -->
+                    <input type="text" name="username" class="username" placeholder="Username" >
+
+                <!-- Password Field -->
+                    <input type="password" name="password" class="password" placeholder="Password" required>
+
+
+                <!-- Login Button -->
+                <button type="submit" class="frame-2">
+                    <div class="text-wrapper-2">Log In</div>
+                </button>
+            </div>
+
+            {% if form.errors %}
+            <div class="errors">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </form>
+
+
+
+
         <div class="frame-3">
           <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
           <div class="text-wrapper-3">or</div>

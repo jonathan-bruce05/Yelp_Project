@@ -17,9 +17,6 @@ from django.urls import reverse
 def home(request):
     return render(request, 'yelpdupe/home.html')
 
-def log_in(request):
-    return render(request, 'yelpdupe/signIn.html')
-
 # Define the index view
 def index(request):
     return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template
@@ -115,7 +112,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, 'yelpdupe/login.html', {'form': form})
+    return render(request, 'yelpdupe/signIn.html', {'form': form})
 
 def logout_view(request):
     logout(request)

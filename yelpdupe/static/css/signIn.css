@@ -64,7 +64,7 @@
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
+  gap: 33px;
   flex: 0 0 auto;
   margin-left: -11.5px;
   margin-right: -11.5px;
@@ -72,21 +72,15 @@
   position: relative;
 }
 
-.sign-in .textboxes {
-  position: relative;
-  width: 340px;
-  flex: 0 0 auto;
-}
 
 .sign-in .username {
   display: flex;
   width: 320px;
   height: 50px;
-  padding: 0px 10px;
+  padding: 0 10px;
   align-items: center;
-  gap: 10px;
+  gap: 55px;
   top: 8px;
-  left: 10px;
   background-color: #f4f3f3;
   border-radius: 5px;
   border: 1px solid var(--collection-1-medium-grey, #89898A);
@@ -105,12 +99,10 @@
   display: flex;
   width: 320px;
   height: 50px;
-  padding: 0px 10px;
+  padding: 0 10px;
   align-items: center;
   gap: 10px;
   position: relative;
-  top: 10px;
-  left: 10px;
   background-color: #f4f3f3;
   border-radius: 5px;
   border: 1px solid var(--collection-1-medium-grey, #89898A);
