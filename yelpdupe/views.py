@@ -1,27 +1,15 @@
+from datetime import datetime
+
+from django.core.paginator import Paginator
+import requests
+from .models import Review
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
-from yelpdupe.forms import RegisterForm
-from django.urls import reverse
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
-import requests
-from yelpdupe.forms import SearchForm
+
+from yelpdupe.forms import SearchForm, ReviewForm
 from django.conf import settings
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
-from yelpdupe.forms import RegisterForm
-from django.urls import reverse
-
-#password change
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-from django.contrib import messages
-from .forms import UsernameForm
 
 #
 def home(request):
@@ -103,6 +91,7 @@ def map_view(request):
     return render(request, 'yelpdupe/map.html', context)
 
 
+
 def restaurant_details(request, place_id):
     # Get restaurant details from the session (or database if needed)
     restaurant = None
@@ -127,9 +116,60 @@ def restaurant_details(request, place_id):
     return render(request, 'yelpdupe/restaurant_detail.html', context)
 
 
-# Define the index view
-def index(request):
-    return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template
+
+# Getter for reviews based on place id
+def get_reviews(place_id):
+    url = url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&key={settings.GOOGLE_PLACES_KEY}"
+    response = requests.get(url)
+
+    # Error Handling
+    if response.status_code != 200:
+        return []
+
+    data = response.json()
+    return data.get('result', {}).get('reviews', [])
+
+def reviews_viewer(request):
+    place_id = request.GET.get('place_id')
+    google_reviews = get_reviews(place_id) if place_id else []
+    user_reviews = Review.objects.filter(place_id=place_id)
+    # display time
+    for review in google_reviews:
+        timestamp = review.get('time')
+        review_time = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S') if timestamp else None
+
+
+    # Review form
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.place_id = place_id
+            new_review.time = datetime.now()
+            new_review.save()
+            return redirect(request.path_info + f'?place_id={place_id}') #reloads page
+    else:
+        form = ReviewForm()
+
+    # combines reviews into 1 list
+    all_reviews = list(google_reviews) + list(user_reviews)
+
+    # Pageifies reviews
+    paginator = Paginator(all_reviews, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'yelpdupe/reviewsearch.html', {
+        'page_obj': page_obj,
+        'place_id': place_id,
+        'form': form,
+    })
+
+    # Find commit to main, figure out user auth confirmation/usrname
+    # Write review
+    # Push to database
+
+
 
 def register(request):
     if request.method == 'POST':
