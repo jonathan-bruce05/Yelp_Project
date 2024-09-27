@@ -11,6 +11,10 @@ from django.http import HttpResponse
 from yelpdupe.forms import SearchForm, ReviewForm
 from django.conf import settings
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
+from yelpdupe.forms import RegisterForm
+from django.urls import reverse
 #
 def home(request):
     return render(request, 'yelpdupe/home.html')
