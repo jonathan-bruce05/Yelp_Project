@@ -7,7 +7,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
-
 from yelpdupe.forms import SearchForm, ReviewForm
 from django.conf import settings
 
@@ -15,6 +14,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from yelpdupe.forms import RegisterForm
 from django.urls import reverse
+
+#Password reset
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import UsernameForm
 #
 def home(request):
     return render(request, 'yelpdupe/home.html')
