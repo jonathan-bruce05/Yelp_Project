@@ -72,14 +72,21 @@
         {% if results %}
             <h2>Search Results:</h2>
             <ul>
-                {% for place in results %}
-                    <li>
-                        <strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})
-                        <br>
-                        <a href="{% url 'reviews_viewer' %}?place_id={{ place.place_id }}">View Reviews</a>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% for restaurant in results %}
+                <li>
+                    <strong>{{ restaurant.name }}</strong> - {{ restaurant.address }} (Rating: {{ restaurant.rating }})<br>
+
+
+                    <div class="button-container">
+                        <!-- Write Button -->
+                        <a href="{% url 'write_review' place_id=restaurant.place_id restaurant_name=restaurant.name|urlencode %}">Write a Review</a>
+
+                        <!-- Reviews Button -->
+                        <a href="{% url 'reviews_viewer' %}?place_id={{ restaurant.place_id }}&restaurant_name={{ restaurant.name|urlencode }}">See Reviews</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
         {% elif request.method == 'POST' %}
             <p>No results found. Please try a different search.</p>
         {% endif %}

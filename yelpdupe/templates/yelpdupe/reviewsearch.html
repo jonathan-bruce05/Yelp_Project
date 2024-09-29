@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Reviews</title>
+    <title>Restaurant Reviews</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,22 +15,6 @@
         }
         h1 {
             text-align: center;
-        }
-        input[type="text"],
-        button {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-        }
-        button:hover {
-            background-color: #0056b3;
         }
         .reviews-container {
             margin-top: 20px;
@@ -65,20 +49,25 @@
             background-color: #0056b3;
             color: white;
         }
-        form {
+        .review-button {
             margin-top: 20px;
+            text-align: center;
         }
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
+        .review-button a {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
             border-radius: 4px;
+        }
+        .review-button a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Reviews</h1>
+        <h1>Reviews for {{ restaurant_name }}</h1>
 
         <!-- Display reviews -->
         <div class="reviews-container">
@@ -86,7 +75,7 @@
             <ul>
                 {% for review in page_obj %}
                     <li>
-                        <strong>{{ review.author_name }} (Rating: {{ review.rating }})</strong><br>
+                        <strong>{{ review.author_name }} Rating: {{ review.rating }}</strong><br>
                         <p>{{ review.text }}</p>
                         <small>{{ review.time }}</small>
                     </li>
@@ -117,13 +106,11 @@
             {% endif %}
         </div>
 
-        <!-- Review submission form -->
-        <h2>Submit Your Review</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit Review</button>
-        </form>
+        <!-- "Write a Review" Button -->
+        <div class="review-button">
+            <a href="{% url 'write_review' place_id place_id|urlencode %}" class="btn btn-primary">Write a Review</a>
+        </div>
+
     </div>
 </body>
 </html>

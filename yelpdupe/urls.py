@@ -20,4 +20,5 @@ urlpatterns = [
 
     path('restaurant/<str:place_id>/', views.restaurant_details, name='restaurant_details'),
     path('reviews/', reviews_viewer, name='reviews_viewer'),
+    path('write_review/<str:place_id>/<str:restaurant_name>/', views.write_review, name='write_review'),
 ]

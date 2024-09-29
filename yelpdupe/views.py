@@ -3,11 +3,13 @@ from datetime import datetime
 from django.core.paginator import Paginator
 import requests
 from .models import Review
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
-from yelpdupe.forms import SearchForm, ReviewForm
+from yelpdupe.forms import SearchForm, ReviewForm, RegisterForm
 from django.conf import settings
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -21,6 +23,7 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UsernameForm
+
 #
 def home(request):
     return render(request, 'yelpdupe/home.html')
@@ -141,13 +144,20 @@ def get_reviews(place_id):
 
 def reviews_viewer(request):
     place_id = request.GET.get('place_id')
+    restaurant_name = request.GET.get('restaurant_name', 'Unknown Restaurant')
+
     google_reviews = get_reviews(place_id) if place_id else []
     user_reviews = Review.objects.filter(place_id=place_id)
-    # display time
+
+    # Google reviews time formatting
     for review in google_reviews:
         timestamp = review.get('time')
-        review_time = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S') if timestamp else None
+        review_time = datetime.utcfromtimestamp(timestamp).strftime('%B %d, %Y') if timestamp else None
+        review['time'] = review_time
 
+    # User reviews time formatting
+    for review in user_reviews:
+        review.time = review.time.strftime('%B %d, %Y')
 
     # Review form
     if request.method == 'POST':
@@ -172,12 +182,30 @@ def reviews_viewer(request):
     return render(request, 'yelpdupe/reviewsearch.html', {
         'page_obj': page_obj,
         'place_id': place_id,
+        'restaurant_name': restaurant_name,
         'form': form,
     })
 
-    # Find commit to main, figure out user auth confirmation/usrname
-    # Write review
-    # Push to database
+@login_required(login_url='/login/')
+def write_review(request, place_id, restaurant_name):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.place_id = place_id
+            new_review.author_name = request.user.username  # Use logged-in user's username
+            new_review.time = datetime.now()  # Add the current time for the review
+            new_review.save()
+
+            return redirect(reverse('reviews_viewer') + f'?place_id={place_id}')
+    else:
+        form = ReviewForm()
+
+    return render(request, 'yelpdupe/write_review.html', {
+        'form': form,
+        'place_id': place_id,
+        'restaurant_name': restaurant_name,  # Pass restaurant name to the template
+    })
 
 
 
