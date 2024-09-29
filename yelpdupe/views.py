@@ -181,39 +181,6 @@ def reviews_viewer(request):
 
 
 
-def register(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            # Specify the backend to be used for authentication
-            backend = 'django.contrib.auth.backends.ModelBackend'
-            login(request, user, backend=backend)  # Log the user in with the correct backend
-            return redirect(reverse('yelpdupe:index'))  # Redirect to a home page after successful registration
-    else:
-        form = RegisterForm()
-
-    return render(request, 'yelpdupe/register.html', {'form': form})
-
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect(reverse('yelpdupe:index'))  # Using the namespace here
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'yelpdupe/login.html', {'form': form})
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')  # Redirect to log in after logging out
-
 
 def register(request):
     if request.method == 'POST':
@@ -238,7 +205,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect(reverse('yelpdupe:index'))  # Using the namespace here
+                return redirect('home')  # Using the namespace here
     else:
         form = AuthenticationForm()
 
