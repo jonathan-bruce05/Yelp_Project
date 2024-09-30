@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 class CustomUser(AbstractUser):
     # Add custom fields here if needed
@@ -26,3 +27,22 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.author_name} - {self.rating}"
+
+class Restaurant(models.Model):
+    place_id = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    rating = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Favorite(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+    class Meta:
+            unique_together = ('user', 'restaurant')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.restaurant.name}"

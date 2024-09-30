@@ -1,7 +1,7 @@
 from . import views
 from django.urls import path, include
 from .views import (map_view, search_restaurants, home, register, login_view, logout_view
-, reset_password, search_username, reviews_viewer)
+, reset_password, search_username, reviews_viewer, toggle_favorite)
 
 # app_name = "YelpDupe"
 
@@ -20,4 +20,7 @@ urlpatterns = [
 
     path('restaurant/<str:place_id>/', views.restaurant_details, name='restaurant_details'),
     path('reviews/', reviews_viewer, name='reviews_viewer'),
+    path('restaurant/<str:place_id>/favorite/', toggle_favorite, name='toggle_favorite'),
+    path('favorites/', views.favorite_restaurants, name='favorite_restaurants'),
+
 ]
