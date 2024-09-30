@@ -1,0 +1,457 @@
+.search-results {
+  background-color: #f3f2f2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-results .div {
+  background-color: #f3f2f2;
+  overflow: hidden;
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+}
+
+.search-results .navbar-component {
+  display: flex;
+  width: 1440px;
+  height: 105px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 105px;
+  padding: 20px 20px 21px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f3f2f2;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #89898a;
+}
+
+.search-results .frame {
+  display: flex;
+  width: 1400px;
+  align-items: center;
+  justify-content: center;
+  gap: 75px;
+  padding: 10px 20px;
+  position: relative;
+  margin-bottom: -10px;
+}
+
+.search-results .text-wrapper {
+  position: relative;
+  width: fit-content;
+  font-family: "Rubik Dirt", Helvetica;
+  font-weight: 400;
+  color: #1e1e1e;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .search-bar-component {
+  display: flex;
+  width: 715px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.search-results .rectangle {
+  width: 661px;
+  background-color: #f3f2f2;
+  border-radius: 5px 0px 0px 5px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-color: #89898a;
+  position: relative;
+  height: 54px;
+}
+
+.search-results .overlap-group-wrapper {
+  position: relative;
+  width: 53px;
+  height: 54px;
+}
+
+.search-results .overlap-group {
+  position: relative;
+  width: 54px;
+  height: 54px;
+}
+
+.search-results .rectangle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.search-results .rectangle-2 {
+  width: 53px;
+  background-color: #2e2bb2;
+  border-radius: 0px 5px 5px 0px;
+  position: relative;
+  height: 54px;
+}
+
+.search-results .img {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  top: 0;
+  left: 0;
+}
+
+.search-results .search-restaurant {
+  width: 683px;
+  position: absolute;
+  top: 17px;
+  left: 20px;
+  border: 0;
+  background: none;
+  height: 21px;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 400;
+  color: #89898a;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.search-results .frame-2 {
+  display: inline-flex;
+  height: 41px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #1e1e1e;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .div-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .text-wrapper-3 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #1e1e1e;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .frame-3 {
+  display: flex;
+  width: 106px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  margin-top: -3.5px;
+  margin-bottom: -3.5px;
+  background-color: #2e2bb2;
+  border-radius: 5px;
+}
+
+.search-results .text-wrapper-4 {
+  position: relative;
+  width: fit-content;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .filters-component {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 919px;
+  align-items: flex-start;
+  gap: 25px;
+  padding: 40px 45px;
+  position: absolute;
+  top: 105px;
+  left: -1px;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-color: #89898a;
+}
+
+.search-results .frame-4 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  color: #000000;
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.search-results .frame-5 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .text-wrapper-6 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .div-2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .biking-mi {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .frame-6 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.search-results .ellipse {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  background-color: #f3f2f2;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #89898a;
+}
+
+.search-results .group {
+  width: 100px;
+  position: relative;
+  height: 19px;
+}
+
+.search-results .frame-7 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.search-results .text-wrapper-7 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .frame-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 158px;
+  align-items: flex-start;
+  gap: 5px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .frame-8 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .group-2 {
+  width: 94px;
+  position: relative;
+  height: 19px;
+}
+
+.search-results .group-3 {
+  width: 107px;
+  position: relative;
+  height: 19px;
+}
+
+.search-results .biking-mi-2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 5px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .ellipse-2 {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  background-color: #2e2bb2;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.search-results .group-4 {
+  width: 110px;
+  position: relative;
+  height: 19px;
+}
+
+.search-results .text-wrapper-8 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.search-results .frame-wrapper-2 {
+  display: flex;
+  flex-direction: column;
+  width: 158px;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-results .group-5 {
+  width: 41px;
+  position: relative;
+  height: 19px;
+}
+
+.search-results .group-6 {
+  width: 50px;
+  position: relative;
+  height: 19px;
+}
+
+.search-results .group-7 {
+  position: relative;
+  width: 49px;
+  height: 19px;
+}
+
+.search-results .frame-9 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #2e2bb2;
+  border-radius: 5px;
+}
+
+.search-results .text-wrapper-9 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}

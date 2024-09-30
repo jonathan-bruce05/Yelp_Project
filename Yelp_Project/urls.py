@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('yelpdupe/', include('yelpdupe.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),  # Add this for allauth
 ]
