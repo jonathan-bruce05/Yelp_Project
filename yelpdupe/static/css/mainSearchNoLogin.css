@@ -1,9 +1,12 @@
 .search-results {
   background-color: #f3f2f2;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+  align-items: flex-start;
   justify-content: center;
-  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .search-results .div {
@@ -75,11 +78,21 @@
   border-color: #89898a;
   position: relative;
   height: 54px;
+
+
+  font-family: "Roboto", Helvetica;
+  font-weight: 400;
+  color: #89898a;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  padding: 0 10px;
 }
 
 .search-results .overlap-group-wrapper {
   position: relative;
-  width: 53px;
+  width: 54px;
   height: 54px;
 }
 
@@ -91,9 +104,10 @@
 
 .search-results .rectangle-wrapper {
   display: inline-flex;
+  justify-content: center; /* Center horizontally */
   align-items: center;
   gap: 10px;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
 }
@@ -101,36 +115,27 @@
 .search-results .rectangle-2 {
   width: 53px;
   background-color: #2e2bb2;
+  border: none;
   border-radius: 0px 5px 5px 0px;
   position: relative;
   height: 54px;
 }
 
-.search-results .img {
-  position: absolute;
-  width: 54px;
-  height: 54px;
-  top: 0;
-  left: 0;
+.search-results .rectangle-2:hover {
+  background-color: #1a1a80; /* Darker shade on hover */
+  transition: background-color 1s ease; /* Smooth transition effect */
 }
 
-.search-results .search-restaurant {
-  width: 683px;
+.search-results .img {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex; /* Ensure flex container */
   position: absolute;
-  top: 17px;
-  left: 20px;
-  border: 0;
-  background: none;
-  height: 21px;
-  margin-top: -1px;
-  font-family: "Roboto", Helvetica;
-  font-weight: 400;
-  color: #89898a;
-  font-size: 18px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -50%); /* This moves the image to the center */
+  pointer-events: none; /* Make the image ignore pointer events */
+
 }
 
 .search-results .frame-2 {
@@ -454,4 +459,35 @@
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+}
+
+
+
+.search-results .results-container {
+  display: flex;
+  width: 60%; /* Adjust this width as necessary */
+  background-color: #fff; /* Optional: Add a background color to make it stand out */
+  max-height: 500px; /* Set the maximum height for the results area */
+  overflow-y: scroll; /* Add a vertical scroll when results exceed the height */
+  padding-top: 20px; /* Optional: Adjust this to add space inside the container */
+  /* Adjust this if needed to bring the results lower on the page */
+  margin: 270px auto auto;
+}
+
+.search-results ul {
+    list-style-type: none;
+    padding: 0;
+}
+.search-results li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.search-results a {
+    text-decoration: none;
+    color: #007BFF;
+}
+.search-results a:hover {
+    text-decoration: underline;
 }

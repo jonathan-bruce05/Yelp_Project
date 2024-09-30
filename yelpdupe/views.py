@@ -22,11 +22,17 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UsernameForm
+
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 #
 User = get_user_model()
 
 def home(request):
     return render(request, 'yelpdupe/home.html')
+
+def mainSearch(request):
+    return render(request, 'yelpdupe/mainSearchNoLogin.html')
 
 
 #Google Restaurant search implementation
@@ -88,7 +94,7 @@ def search_restaurants(request):
         'form': form,  # Pass the form to the template
         'results': results,  # Pass the search results to the template
     }
-    return render(request, 'yelpdupe/search.html', context)  # Render the template with context
+    return render(request, 'yelpdupe/mainSearchNoLogin.html', context)  # Render the template with context
     # return redirect('map')
 def map_view(request):
     # Example restaurant locations (latitude and longitude)

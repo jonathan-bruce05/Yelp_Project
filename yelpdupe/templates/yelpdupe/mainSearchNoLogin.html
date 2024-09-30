@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% load static %}
+    {%  load socialaccount %}
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="styleguide.css" />
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/globals.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styleGuide.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mainSearchNoLogin.css' %}" />
   </head>
   <body>
     <div class="search-results">
@@ -12,16 +15,22 @@
         <div class="navbar-component">
           <div class="frame">
             <div class="text-wrapper">chomp</div>
-            <div class="search-bar-component">
-              <div class="rectangle"></div>
-              <div class="overlap-group-wrapper">
-                <div class="overlap-group">
-                  <div class="rectangle-wrapper"><div class="rectangle-2"></div></div>
-                  <img class="img" src="img/frame-19-2.svg" />
+
+              <form action="{% url 'search_restaurants' %}" method="POST">
+                {% csrf_token %}
+                <div class="search-bar-component">
+                  <input class="rectangle" name="query" placeholder="search restaurant name, cuisine type, or location" required></input>
+                  <div class="overlap-group-wrapper">
+                    <div class="overlap-group">
+                      <div class="rectangle-wrapper"><button class="rectangle-2"></button></div>
+                      <img class="img" src="{% static  'img/vector.svg' %}" alt="white space"/>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <input class="search-restaurant" />
-            </div>
+              </form>
+
+
+
             <div class="frame-2">
               <div class="text-wrapper-2">Write a Review</div>
               <div class="div-wrapper"><div class="text-wrapper-3">Log In</div></div>
@@ -29,6 +38,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="filters-component">
           <div class="frame-4"><div class="text-wrapper-5">Filters</div></div>
           <div class="frame-5">
@@ -117,6 +128,23 @@
           </div>
           <div class="frame-9"><div class="text-wrapper-9">Apply Filters</div></div>
         </div>
+          <div class="results-container">
+              {% if results %}
+                        <ul>
+                            {% for place in results %}
+                                <li>
+                                    <strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})
+                                    <br>
+                                    <a href="{% url 'reviews_viewer' %}?place_id={{ place.place_id }}">View Reviews</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% elif request.method == 'POST' %}
+                        <p>No results found. Please try a different search.</p>
+              {% endif %}
+          </div>
+
+
       </div>
     </div>
   </body>
