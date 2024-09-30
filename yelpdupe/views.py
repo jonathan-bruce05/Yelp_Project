@@ -1,8 +1,9 @@
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import requests
-from .models import Review
+from .models import Review, Favorite, Restaurant
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -11,17 +12,19 @@ from yelpdupe.forms import SearchForm, ReviewForm
 from django.conf import settings
 
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from yelpdupe.forms import RegisterForm
 from django.urls import reverse
 
 #Password reset
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UsernameForm
 #
+User = get_user_model()
+
 def home(request):
     return render(request, 'yelpdupe/home.html')
 
@@ -122,6 +125,32 @@ def restaurant_details(request, place_id):
     }
     return render(request, 'yelpdupe/restaurant_detail.html', context)
 
+@login_required
+def toggle_favorite(request, place_id):
+    # Ensure restaurant exists or create it if not
+    restaurant_locations = request.session.get('restaurant_locations', [])
+    restaurant_data = next((location for location in restaurant_locations if location['place_id'] == place_id), None)
+
+    if restaurant_data:
+        restaurant, created = Restaurant.objects.get_or_create(
+            place_id=place_id,
+            defaults={
+                'name': restaurant_data['name'],
+                'address': restaurant_data['address'],
+                'rating': restaurant_data['rating'],
+            }
+        )
+    else:
+        return HttpResponse("Restaurant not found", status=404)
+    # Toggle favorite status
+    favorite, created = Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
+    if not created:
+        favorite.delete()
+        message = f"Unfavorited restaurant: {restaurant.name}"
+    else:
+        message = f"Favorited restaurant: {restaurant.name}"
+    print(message)
+    return redirect('restaurant_details', place_id=place_id)
 
 
 # Getter for reviews based on place id
@@ -172,13 +201,23 @@ def reviews_viewer(request):
         'form': form,
     })
 
+def favorite_restaurants(request):
+    # Fetch all favorited restaurants for the current user
+    favorites = Favorite.objects.filter(user=request.user)
+    context = {
+        'favorites': favorites
+    }
+    return render(request, 'yelpdupe/favorite_restaurants.html', context)
 
 
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])  # Hash the password
+            user.save()
+
             # Specify the backend to be used for authentication
             backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user, backend=backend)  # Log the user in with the correct backend
@@ -237,7 +276,7 @@ def reset_password(request, username):
         confirm_password = request.POST.get('confirm_password')
 
         if new_password == confirm_password:
-            user.password = make_password(new_password)
+            user.set_password(new_password)  # Use set_password to hash
             user.save()
             messages.success(request, 'Password updated successfully.')
             return redirect('login')

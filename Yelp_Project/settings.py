@@ -165,3 +165,6 @@ SOCIALACCOUNT_PROVIDERS = {
         # Apple-specific configs (optional)
    # }
 }
+
+AUTH_USER_MODEL = 'yelpdupe.CustomUser'
+
