@@ -25,9 +25,6 @@ from .forms import UsernameForm
 def home(request):
     return render(request, 'yelpdupe/home.html')
 
-# Define the index view
-def index(request):
-    return render(request, 'yelpdupe/index.html')  # Ensure you have an index.html template
 
 #Google Restaurant search implementation
 def search_restaurants(request):
@@ -174,11 +171,6 @@ def reviews_viewer(request):
         'place_id': place_id,
         'form': form,
     })
-
-    # Find commit to main, figure out user auth confirmation/usrname
-    # Write review
-    # Push to database
-
 
 
 
