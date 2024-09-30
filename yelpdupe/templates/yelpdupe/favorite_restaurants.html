@@ -1,0 +1,29 @@
+<!-- yelpdupe/templates/yelpdupe/favorite_restaurants.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Favorite Restaurants</title>
+</head>
+<body>
+    <h1>Your Favorite Restaurants</h1>
+
+    {% if favorites %}
+        <ul>
+            {% for favorite in favorites %}
+                <li>
+                    <a href="{% url 'restaurant_details' favorite.restaurant.place_id %}">
+                        {{ favorite.restaurant.name }}
+                    </a>
+                    - {{ favorite.restaurant.address }}
+                    - Rating: {{ favorite.restaurant.rating }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't favorited any restaurants yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'search_restaurants' %}">Back to search</a></p>
+</body>
+</html>

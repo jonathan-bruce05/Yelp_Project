@@ -84,6 +84,19 @@
     <p><strong>Address:</strong> {{ restaurant.address }}</p>
     <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
     <p><strong>Reviews:</strong> {{ restaurant.reviews }}</p>
+     <!-- Favorite Button -->
+    <form method="POST" action="{% url 'toggle_favorite' restaurant.place_id %}">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            {% if restaurant in user.favorite_set.all %}
+                <button type="submit">Unfavorite</button>
+            {% else %}
+                <button type="submit">Favorite</button>
+            {% endif %}
+        {% else %}
+            <p><a href="{% url 'login' %}">Log in</a> to favorite this restaurant.</p>
+        {% endif %}
+    </form>
 
     <!-- Google Map for showing the directions -->
     <h2>Directions from your location to the restaurant</h2>
