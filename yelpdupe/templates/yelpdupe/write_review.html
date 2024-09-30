@@ -53,7 +53,7 @@
                 <button type="submit">Submit Review</button>
             </form>
         {% else %}
-            <!-- If the user is not logged in, show a login and signup prompt -->
+            <!-- If not logged in, show login/signup prompt -->
             <div class="login-message">
                 <p>You need to <a href="{% url 'login' %}" class="login-button">Log In</a> or
                 <a href="{% url 'register' %}" class="signup-button">Sign Up</a> to write a review.</p>

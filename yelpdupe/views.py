@@ -1,10 +1,6 @@
-from datetime import datetime
-
-from django.core.paginator import Paginator
 import requests
-from .models import Review
-from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -24,7 +20,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UsernameForm
 
-#
+# Reviews:
+from .models import Review
+from django.core.paginator import Paginator
+from datetime import datetime
+import urllib.parse
+
 def home(request):
     return render(request, 'yelpdupe/home.html')
 
@@ -188,23 +189,25 @@ def reviews_viewer(request):
 
 @login_required(login_url='/login/')
 def write_review(request, place_id, restaurant_name):
+
+    decoded_restaurant_name = urllib.parse.unquote(restaurant_name)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             new_review = form.save(commit=False)
-            new_review.place_id = place_id
-            new_review.author_name = request.user.username  # Use logged-in user's username
-            new_review.time = datetime.now()  # Add the current time for the review
+            new_review.place_id = place_id # place_id to form request
+            new_review.author_name = request.user.username  # logged-in user's username
+            new_review.time = datetime.now()  # current time
             new_review.save()
 
-            return redirect(reverse('reviews_viewer') + f'?place_id={place_id}')
+            return redirect(reverse('reviews_viewer') + f'?place_id={place_id}&restaurant_name={restaurant_name}')
     else:
         form = ReviewForm()
 
     return render(request, 'yelpdupe/write_review.html', {
         'form': form,
         'place_id': place_id,
-        'restaurant_name': restaurant_name,  # Pass restaurant name to the template
+        'restaurant_name': decoded_restaurant_name,
     })
 
 
