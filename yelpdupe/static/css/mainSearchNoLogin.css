@@ -324,20 +324,6 @@
   position: relative;
 }
 
-.search-results .text-wrapper-7 {
-  position: relative;
-  width: fit-content;
-  margin-top: -1px;
-  font-family: "Roboto", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 16px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
 .search-results .frame-wrapper {
   display: flex;
   flex-direction: column;
@@ -394,20 +380,6 @@
   height: 19px;
 }
 
-.search-results .text-wrapper-8 {
-  position: relative;
-  width: fit-content;
-  margin-top: -1px;
-  font-family: "Roboto", Helvetica;
-  font-weight: 600;
-  color: #000000;
-  font-size: 16px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
 .search-results .frame-wrapper-2 {
   display: flex;
   flex-direction: column;
@@ -462,32 +434,125 @@
 }
 
 
+.search-results .search-container {
+  display: flex;
+  width: 100%;
+  height: 100%; /* Full viewport height for scrolling and space */
+}
 
 .search-results .results-container {
   display: flex;
-  width: 60%; /* Adjust this width as necessary */
+  width: 100%; /* Adjust this width as necessary */
   background-color: #fff; /* Optional: Add a background color to make it stand out */
-  max-height: 500px; /* Set the maximum height for the results area */
+  max-height: 805px; /* Set the maximum height for the results area */
   overflow-y: scroll; /* Add a vertical scroll when results exceed the height */
-  padding-top: 20px; /* Optional: Adjust this to add space inside the container */
+  padding-top: 15px; /* Optional: Adjust this to add space inside the container */
   /* Adjust this if needed to bring the results lower on the page */
-  margin: 270px auto auto;
+  margin-top: 105px;
+  margin-left: 250px;
+}
+
+.search-results .map-container {
+    width: 100%; /* 50% of the screen for the map */
+    margin-top: 105px; /* Adjust for the space taken by the navbar */
+    padding: 0;
 }
 
 .search-results ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
+
 .search-results li {
-    padding: 10px;
-    margin-bottom: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    background-color: #fafafa;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
+
+.search-results li:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .search-results a {
-    text-decoration: none;
     color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
 }
+
 .search-results a:hover {
     text-decoration: underline;
+}
+
+
+
+/* Hide default radio button */
+.search-results .custom-radio input[type="radio"] {
+    display: none;
+}
+
+/* Default ellipse styling (for unchecked state) */
+.search-results .custom-radio .ellipse {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background-color: #f3f2f2;
+    border-radius: 50%;  /* Creates the circle shape */
+    border: 1px solid #89898a;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Checked state */
+.search-results .custom-radio input[type="radio"]:checked + .ellipse {
+    background-color: #3f2fcf;  /* Change this color to your preference */
+    border-color: #3f2fcf;
+}
+
+/* Optional: Add hover effects if you like */
+.search-results .custom-radio:hover .ellipse {
+    background-color: #d3d2d2;
+    border-color: #89898a;
+}
+
+/* Positioning text next to the ellipse */
+.search-results .custom-radio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.search-results .custom-radio .normal-text {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+
+.search-results .custom-radio .bold-text {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
 }
