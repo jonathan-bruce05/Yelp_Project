@@ -136,7 +136,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # New settings for authentication and social login
-
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/yelpdupe/login/'
 

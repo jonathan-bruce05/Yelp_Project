@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Submitted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #28a745;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        // Automatically redirect to the home page after 5 seconds
+        setTimeout(function(){
+            window.location.href = "{% url 'home' %}";
+        }, 5000);
+    </script>
+</head>
+<body>
+    <h1>Thank you for your review!</h1>
+    <p>Your review has been submitted successfully.</p>
+    <p>You will be redirected to the home page in a few seconds.</p>
+</body>
+</html>

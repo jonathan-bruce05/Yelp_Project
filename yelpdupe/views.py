@@ -227,20 +227,22 @@ def favorite_restaurants(request):
     return render(request, 'yelpdupe/favorite_restaurants.html', context)
 
 
-@login_required(login_url='/login/')
-def write_review(request, place_id, restaurant_name):
+@login_required(login_url='/yelpdupe/login/')
+def write_review(request, place_id=None, restaurant_name=None):
+    if not place_id or not restaurant_name:
+        return redirect('search_review')
 
     decoded_restaurant_name = urllib.parse.unquote(restaurant_name)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             new_review = form.save(commit=False)
-            new_review.place_id = place_id # place_id to form request
+            new_review.place_id = place_id  # Add place_id to form request
             new_review.author_name = request.user.username  # logged-in user's username
             new_review.time = datetime.now()  # current time
             new_review.save()
 
-            return redirect(reverse('reviews_viewer') + f'?place_id={place_id}&restaurant_name={restaurant_name}')
+            return redirect('review_confirmation')  # Redirect to the confirmation page
     else:
         form = ReviewForm()
 
@@ -250,8 +252,60 @@ def write_review(request, place_id, restaurant_name):
         'restaurant_name': decoded_restaurant_name,
     })
 
+def review_confirmation(request):
+    return render(request,  'yelpdupe/review_confirmation.html')
+def review_search(request):
+    form = SearchForm()
+    results = []
+    restaurant_locations = []
 
+    location = '33.7490,-84.3880'
 
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            distance = 5000
+            min_rating = 0
+
+            url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
+            params = {
+                'query': query,
+                'type': 'restaurant',
+                'key': settings.GOOGLE_PLACES_KEY,
+                'location': location,
+                'radius': distance,
+            }
+            response = requests.get(url, params=params)
+            if response.status_code == 200:
+                all_results = response.json().get('results', [])
+                results = [place for place in all_results if place.get('rating', 0) >= min_rating]
+
+                for result in results:
+                    if 'geometry' in result and 'location' in result['geometry']:
+                        lat = result['geometry']['location']['lat']
+                        lng = result['geometry']['location']['lng']
+                        name = result.get('name', 'Unknown Restaurant')
+                        place_id = result.get('place_id', None)
+
+                        if place_id:
+                            restaurant_locations.append({
+                                'name': name,
+                                'lat': lat,
+                                'lng': lng,
+                                'place_id': place_id,
+                                'address': result.get('formatted_address', 'No address available'),
+                                'rating': result.get('rating', 'No rating available'),
+                                'reviews': result.get('user_ratings_total', 'No reviews available'),
+                            })
+            else:
+                results = []
+
+    context = {
+        'form': form,
+        'results': results,
+    }
+    return render(request, 'yelpdupe/search_review.html', context)
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
