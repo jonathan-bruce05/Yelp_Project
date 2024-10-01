@@ -22,7 +22,6 @@
             margin-bottom: 20px;
         }
         input[type="text"],
-        input[type="number"],
         button {
             padding: 10px;
             margin: 10px 0;
@@ -64,7 +63,8 @@
         <!-- Search Form -->
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}  <!-- Renders the form with proper HTML tags -->
+            {{ form.query.label_tag }} <!-- Only show the query field -->
+            {{ form.query }} <!-- Render only the query field without distance or rating -->
             <button type="submit">Search</button>
         </form>
 
@@ -75,20 +75,13 @@
             {% for restaurant in results %}
                 <li>
                     <strong>{{ restaurant.name }}</strong> - {{ restaurant.address }} (Rating: {{ restaurant.rating }})<br>
-
-
-                    <div class="button-container">
-                        <!-- Write Button -->
-                        <a href="{% url 'write_review' place_id=restaurant.place_id restaurant_name=restaurant.name|urlencode %}">Write a Review</a>
-                        <!-- Reviews Button -->
-                        <a href="{% url 'reviews_viewer' %}?place_id={{ restaurant.place_id }}&restaurant_name={{ restaurant.name|urlencode }}">See Reviews</a>
-                    </div>
+                    <a href="{% url 'write_review' place_id=restaurant.place_id restaurant_name=restaurant.name|urlencode %}">
+                        Write a Review
+                    </a>
                 </li>
             {% endfor %}
-        </ul>
+            </ul>
         {% elif request.method == 'POST' %}
             <p>No results found. Please try a different search.</p>
         {% endif %}
     </div>
-</body>
-</html>

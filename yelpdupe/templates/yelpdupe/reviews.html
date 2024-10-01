@@ -14,7 +14,7 @@
     <ul>
         {% for review in reviews %}
             <li>
-                <strong>{{ review.author_name }} (Rating: {{ review.rating }})</strong><br>
+                <strong>{{ review.author_name }} Rating: {{ review.rating }}</strong><br>
                 <p>{{ review.text }}</p>
                 <small>{{ review.time }}</small>
             </li>

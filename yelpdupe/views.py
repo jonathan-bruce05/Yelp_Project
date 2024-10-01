@@ -1,14 +1,16 @@
+
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import requests
+from django.contrib.auth.decorators import login_required
 from .models import Review, Favorite, Restaurant
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 #Imports used for Restaurant search
-from yelpdupe.forms import SearchForm, ReviewForm
+from yelpdupe.forms import SearchForm, ReviewForm, RegisterForm
 from django.conf import settings
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -25,6 +27,13 @@ from .forms import UsernameForm
 
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+
+# Reviews:
+from .models import Review
+from django.core.paginator import Paginator
+from datetime import datetime
+import urllib.parse
+
 #
 User = get_user_model()
 
@@ -99,7 +108,7 @@ def search_restaurants(request):
         'locations': locations,
         'GOOGLE_MAPS_API_KEY': settings.GOOGLE_PLACES_KEY  # Add API key to context
     }
-    return render(request, 'yelpdupe/mainSearchNoLogin.html', context)  # Render the template with context
+    return render(request, 'yelpdupe/search.html', context)  # Render the template with context
     # return redirect('map')
 
 def map_view(request):
@@ -181,13 +190,20 @@ def get_reviews(place_id):
 
 def reviews_viewer(request):
     place_id = request.GET.get('place_id')
+    restaurant_name = request.GET.get('restaurant_name', 'Unknown Restaurant')
+
     google_reviews = get_reviews(place_id) if place_id else []
     user_reviews = Review.objects.filter(place_id=place_id)
-    # display time
+
+    # Google reviews time formatting
     for review in google_reviews:
         timestamp = review.get('time')
-        review_time = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S') if timestamp else None
+        review_time = datetime.utcfromtimestamp(timestamp).strftime('%B %d, %Y') if timestamp else None
+        review['time'] = review_time
 
+    # User reviews time formatting
+    for review in user_reviews:
+        review.time = review.time.strftime('%B %d, %Y')
 
     # Review form
     if request.method == 'POST':
@@ -212,6 +228,7 @@ def reviews_viewer(request):
     return render(request, 'yelpdupe/reviewsearch.html', {
         'page_obj': page_obj,
         'place_id': place_id,
+        'restaurant_name': restaurant_name,
         'form': form,
     })
 
@@ -222,6 +239,87 @@ def favorite_restaurants(request):
         'favorites': favorites
     }
     return render(request, 'yelpdupe/favorite_restaurants.html', context)
+
+
+@login_required(login_url='/yelpdupe/login/')
+def write_review(request, place_id=None, restaurant_name=None):
+    if not place_id or not restaurant_name:
+        return redirect('search_review')
+
+    decoded_restaurant_name = urllib.parse.unquote(restaurant_name)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.place_id = place_id  # Add place_id to form request
+            new_review.author_name = request.user.username  # logged-in user's username
+            new_review.time = datetime.now()  # current time
+            new_review.save()
+
+            return redirect('review_confirmation')  # Redirect to the confirmation page
+    else:
+        form = ReviewForm()
+
+    return render(request, 'yelpdupe/write_review.html', {
+        'form': form,
+        'place_id': place_id,
+        'restaurant_name': decoded_restaurant_name,
+    })
+
+def review_confirmation(request):
+    return render(request,  'yelpdupe/review_confirmation.html')
+def review_search(request):
+    form = SearchForm()
+    results = []
+    restaurant_locations = []
+
+    location = '33.7490,-84.3880'
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            distance = 5000
+            min_rating = 0
+
+            url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
+            params = {
+                'query': query,
+                'type': 'restaurant',
+                'key': settings.GOOGLE_PLACES_KEY,
+                'location': location,
+                'radius': distance,
+            }
+            response = requests.get(url, params=params)
+            if response.status_code == 200:
+                all_results = response.json().get('results', [])
+                results = [place for place in all_results if place.get('rating', 0) >= min_rating]
+
+                for result in results:
+                    if 'geometry' in result and 'location' in result['geometry']:
+                        lat = result['geometry']['location']['lat']
+                        lng = result['geometry']['location']['lng']
+                        name = result.get('name', 'Unknown Restaurant')
+                        place_id = result.get('place_id', None)
+
+                        if place_id:
+                            restaurant_locations.append({
+                                'name': name,
+                                'lat': lat,
+                                'lng': lng,
+                                'place_id': place_id,
+                                'address': result.get('formatted_address', 'No address available'),
+                                'rating': result.get('rating', 'No rating available'),
+                                'reviews': result.get('user_ratings_total', 'No reviews available'),
+                            })
+            else:
+                results = []
+
+    context = {
+        'form': form,
+        'results': results,
+    }
+    return render(request, 'yelpdupe/search_review.html', context)
 
 
 def register(request):
@@ -298,10 +396,3 @@ def reset_password(request, username):
             messages.error(request, 'Passwords do not match.')
 
     return render(request, 'yelpdupe/reset_password.html', {'username': username})
-
-# Add this function to handle the 'Write a Review' functionality
-def write_review(request):
-    if request.method == 'POST':
-        # Process the review form here (if needed)
-        pass
-    return render(request, 'yelpdupe/writereview.html')

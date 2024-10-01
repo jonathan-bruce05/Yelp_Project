@@ -26,8 +26,11 @@ urlpatterns = [
 
     path('restaurant/<str:place_id>/', views.restaurant_details, name='restaurant_details'),
     path('reviews/', reviews_viewer, name='reviews_viewer'),
+    path('write_review/', views.write_review, name='write_review'),
+    path('write_review/<str:place_id>/<str:restaurant_name>/', views.write_review, name='write_review'),
+    path('search/write_review/', views.review_search, name='search_write_review'),
+    path('review_confirmation/', views.review_confirmation, name='review_confirmation'),
     path('restaurant/<str:place_id>/favorite/', toggle_favorite, name='toggle_favorite'),
     path('favorites/', views.favorite_restaurants, name='favorite_restaurants'),
-    path('write-review/', views.write_review, name='write_review'),
 
 ]
