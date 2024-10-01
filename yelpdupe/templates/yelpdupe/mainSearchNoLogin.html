@@ -61,13 +61,15 @@
   </head>
   <body>
     <div class="search-results">
+
       <div class="div">
+        <form action="{% url 'search_restaurants' %}" method="POST">
+        {% csrf_token %}
         <div class="navbar-component">
           <div class="frame">
-            <div class="text-wrapper">chomp</div>
+            <div class="text-wrapper"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
 
-              <form action="{% url 'search_restaurants' %}" method="POST">
-                {% csrf_token %}
+
                 <div class="search-bar-component">
                   <input class="rectangle" name="query" placeholder="search restaurant name, cuisine type, or location" required></input>
                   <div class="overlap-group-wrapper">
@@ -77,40 +79,38 @@
                     </div>
                   </div>
                 </div>
-              </form>
+
 
 
 
             <div class="frame-2">
-              <div class="text-wrapper-2">Write a Review</div>
-              <div class="div-wrapper"><div class="text-wrapper-3">Log In</div></div>
-              <div class="frame-3"><div class="text-wrapper-4">Sign Up</div></div>
+              <a href="/yelpdupe/write-review/" class="text-wrapper-2">Write a Review</a>
+              <a href="/yelpdupe/login/" class="text-wrapper-3">Log In</a>
+              <button class="frame-3" onclick="window.location.href='/yelpdupe/register/';"><div class="text-wrapper-4">Sign Up</div></button>
             </div>
           </div>
         </div>
 
-        <form action="{% url 'search_restaurants' %}" method="POST">
-        {% csrf_token %}
             <div class="filters-component">
               <div class="frame-4"><div class="text-wrapper-5">Filters</div></div>
               <div class="frame-5">
                 <div class="text-wrapper-6">Distance</div>
                 <div class="frame-4">
                       <div class="div-2">
-                        <label class="custom-radio">
-                          <input type="radio" name="distance" value="5000">
+                        <label  class="custom-radio">
+                          <input type="radio"  name="distance" value="5000">
                             <span class="ellipse"></span> <span class="normal-text">Driving (5 mi.)</span>
                         </label>
-                        <label class="custom-radio">
-                          <input type="radio" name="distance" value="2000">
+                        <label  class="custom-radio">
+                          <input type="radio"  name="distance" value="2000">
                           <span class="ellipse"></span> <span class="normal-text">Biking (2 mi.)</span>
                         </label>
-                        <label class="custom-radio">
-                          <input type="radio" name="distance" value="1000">
+                        <label  class="custom-radio">
+                          <input type="radio"  name="distance" value="1000">
                           <span class="ellipse"></span> <span class="normal-text">Walking (1 mi.)</span>
                         </label>
-                        <label class="custom-radio">
-                          <input type="radio" name="distance" value="500">
+                        <label  class="custom-radio">
+                          <input type="radio"  name="distance" value="500">
                           <span class="ellipse"></span> <span class="normal-text">Within 4 blocks</span>
                         </label>
                       </div>
@@ -119,51 +119,35 @@
               <div class="frame-5">
                 <div class="text-wrapper-6">Minimum Rating</div>
                 <div class="div-2">
-                  <div class="frame-wrapper-2">
-                    <div class="frame-8">
-                      <div class="ellipse"></div>
-                      <div class="group-5">
-                        <div class="frame-7"><div class="text-wrapper-7">1 star</div></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="frame-wrapper-2">
-                    <div class="frame-8">
-                      <div class="ellipse-2"></div>
-                      <div class="group-6">
-                        <div class="frame-7"><div class="text-wrapper-8">2 stars</div></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="frame-wrapper-2">
-                    <div class="frame-8">
-                      <div class="ellipse"></div>
-                      <div class="group-7">
-                        <div class="frame-7"><div class="text-wrapper-7">3 stars</div></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="frame-wrapper-2">
-                    <div class="frame-8">
-                      <div class="ellipse"></div>
-                      <div class="group-7">
-                        <div class="frame-7"><div class="text-wrapper-7">4 stars</div></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="frame-wrapper-2">
-                    <div class="frame-8">
-                      <div class="ellipse"></div>
-                      <div class="group-7">
-                        <div class="frame-7"><div class="text-wrapper-7">5 stars</div></div>
-                      </div>
-                    </div>
+                  <div class="div-2">
+                      <label class="custom-radio">
+                        <input type="radio" name="min_rating" value="1">
+                          <span class="ellipse"></span> <span class="normal-text">1 Star</span>
+                      </label>
+                      <label class="custom-radio">
+                        <input type="radio" name="min_rating" value="2">
+                        <span class="ellipse"></span> <span class="normal-text">2 Stars</span>
+                      </label>
+                      <label class="custom-radio">
+                        <input type="radio" name="min_rating" value="3">
+                        <span class="ellipse"></span> <span class="normal-text">3 Stars</span>
+                      </label>
+                      <label class="custom-radio">
+                        <input type="radio" name="min_rating" value="4">
+                        <span class="ellipse"></span> <span class="normal-text">4 Stars</span>
+                      </label>
+                      <label class="custom-radio">
+                        <input type="radio" name="min_rating" value="5">
+                        <span class="ellipse"></span> <span class="normal-text">5 Stars</span>
+                      </label>
                   </div>
                 </div>
               </div>
-              <div class="frame-9"><div class="text-wrapper-9">Apply Filters</div></div>
+
+
+<!--              <button type="submit" class="frame-9"><div class="text-wrapper-9">Apply Filters</div></button>-->
             </div>
-        </form>
+    </form>
 
 
         <div class="search-container">
