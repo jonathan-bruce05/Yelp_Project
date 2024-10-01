@@ -193,7 +193,20 @@
   margin-top: -3.5px;
   margin-bottom: -3.5px;
   background-color: #2e2bb2;
+  border: none;
   border-radius: 5px;
+}
+
+.search-results .frame-3:hover {
+    background-color: #283593; /* Darker blue on hover */
+    transition: background-color 1s ease;
+}
+
+/* Optional: Active or focus effect */
+.search-results .frame-3:active {
+  background-color: #1a237e; /* Darker color on click */
+  transform: scale(0.95); /* Shrink effect on click */
+  transition: transform 0.1s ease; /* Quick smooth transition */
 }
 
 .search-results .text-wrapper-4 {
@@ -206,7 +219,9 @@
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  pointer-events: none; /* Make the image ignore pointer events */
 }
+
 
 .search-results .filters-component {
   display: flex;
@@ -538,7 +553,7 @@
   font-size: 16px;
   text-align: center;
   letter-spacing: 0;
-  line-height: normal;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
@@ -553,6 +568,6 @@
   font-size: 16px;
   text-align: center;
   letter-spacing: 0;
-  line-height: normal;
+  line-height: 1.5;
   white-space: nowrap;
 }
