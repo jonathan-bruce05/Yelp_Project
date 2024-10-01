@@ -6,9 +6,10 @@ from .views import (map_view, search_restaurants, home, register, login_view, lo
 # app_name = "YelpDupe"
 
 urlpatterns = [
+    path('yelpdupe/', views.home, name='yelpdupe'),  # /yelpdupe/ URL also maps to yelpdupe_home view
     path('search/', search_restaurants, name='search_restaurants'),
     path('map/', map_view, name='map'),
-    path('', home, name='home'),
+    path('', views.home, name='home'),
     path('register/', register, name='register'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
@@ -22,5 +23,6 @@ urlpatterns = [
     path('reviews/', reviews_viewer, name='reviews_viewer'),
     path('restaurant/<str:place_id>/favorite/', toggle_favorite, name='toggle_favorite'),
     path('favorites/', views.favorite_restaurants, name='favorite_restaurants'),
+    path('write-review/', views.write_review, name='write_review'),
 
 ]

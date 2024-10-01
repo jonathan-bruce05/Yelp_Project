@@ -26,7 +26,7 @@ from .forms import UsernameForm
 User = get_user_model()
 
 def home(request):
-    return render(request, 'yelpdupe/home.html')
+    return render(request, 'yelpdupe/newHomePage.html')
 
 
 #Google Restaurant search implementation
@@ -284,3 +284,10 @@ def reset_password(request, username):
             messages.error(request, 'Passwords do not match.')
 
     return render(request, 'yelpdupe/reset_password.html', {'username': username})
+
+# Add this function to handle the 'Write a Review' functionality
+def write_review(request):
+    if request.method == 'POST':
+        # Process the review form here (if needed)
+        pass
+    return render(request, 'yelpdupe/writereview.html')

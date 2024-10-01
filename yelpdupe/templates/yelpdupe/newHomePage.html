@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chomp - Find Your Next Meal</title>
+    {% load static %}
+    <!-- Restore the references to the CSS files -->
+    <link rel="stylesheet" href="{% static 'css/newHomePageStyle.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/newHomePageGlobals.css' %}" />
+</head>
+<body>
+    <div class="home-page-not-signed">
+        <!-- Navbar component -->
+        <div class="navbar-component">
+            <div class="frame">
+                <!-- Restore the logo using the original class from the CSS -->
+                <div class="text-wrapper logo">chomp</div>
+                <div class="div">
+                    <!-- Buttons for Write a Review, Log In, and Sign Up -->
+                    <button class="button" onclick="window.location.href='{% url 'write_review' %}'">Write a Review</button>
+                    <button class="button" onclick="window.location.href='{% url 'login' %}'">Log In</button>
+                    <button class="button" onclick="window.location.href='{% url 'register' %}'">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search bar component with invisible input over the SVG background search bar -->
+        <div class="search-bar-container">
+            <form method="POST" action="{% url 'search_restaurants' %}" id="search-form">
+                {% csrf_token %}
+                <div class="search-container invisible">
+                    <input type="text" class="search-restaurant" placeholder="Search restaurant name, cuisine type, or location" required />
+                    <button class="vector-btn" type="submit">
+                        <img src="{% static 'img/frame-19-1.svg' %}" alt="Search Icon">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
