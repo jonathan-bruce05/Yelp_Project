@@ -1,0 +1,321 @@
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  height: 1024px;
+  align-items: center;
+  gap: 47px;
+  position: relative;
+  background-color: #f3f2f2;
+  overflow: hidden;
+}
+
+.sign-up .rectangle {
+  position: relative;
+  width: 1440px;
+  height: 101px;
+  margin-left: -1942px;
+}
+
+.sign-up .component {
+  display: flex;
+  flex-direction: column;
+  width: 317px;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.sign-up .frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.sign-up .div-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.sign-up .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+/* Parent div to ensure inputs are centered */
+.sign-up .div {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the input boxes horizontally */
+  gap: 15px; /* Adjust the gap between input boxes */
+  margin: 0 auto; /* Ensure it's centered */
+}
+
+/* Styling the input fields */
+.sign-up .textboxes {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.sign-up .email,
+.sign-up .username,
+.sign-up .input {
+  width: 320px;
+  height: 50px;
+  padding: 10px;
+  background-color: #f4f3f3;
+  border-radius: 5px;
+  border: 1px solid #89898a;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #89898a;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  box-sizing: border-box;
+  margin: 0 auto; /* Center the input fields */
+}
+
+
+.sign-up .frame-3 {
+  display: flex;
+  width: 320px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  margin-left: -1.5px;
+  margin-right: -1.5px;
+  background-color: #2e2bb2;
+  border-radius: 5px;
+}
+
+.sign-up .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .frame-4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.sign-up .line {
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  height: 1px;
+  object-fit: cover;
+}
+
+.sign-up .text-wrapper-3 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #686869;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.sign-up .frame-5 {
+  display: flex;
+  width: 320px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  margin-left: -1.5px;
+  margin-right: -1.5px;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+
+.sign-up .continue-with-google {
+  position: relative;
+  width: fit-content;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #1e1e1e;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .image {
+  position: absolute;
+  width: 28px;
+  height: 37px;
+  top: 7px;
+  left: 38px;
+  object-fit: cover;
+}
+
+.sign-up .text-wrapper-4 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #1e1e1e;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Roboto", Helvetica;
+  font-weight: 500;
+  color: #2e2bb2;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .navbar-component {
+  display: flex;
+  width: 1440px;
+  height: 83px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 105px;
+  padding: 20px 20px 21px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #1e1e1e;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.sign-up .frame-6 {
+  display: flex;
+  width: 1400px;
+  align-items: center;
+  justify-content: center;
+  gap: 865px;
+  padding: 10px 20px;
+  position: relative;
+  margin-bottom: -21px;
+}
+
+.sign-up .text-wrapper-6 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: 'Rubik Dirt', sans-serif !important;
+  font-weight: 400;
+  color: #1e1e1e;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .frame-7 {
+  display: inline-flex;
+  height: 41px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+  position: relative;
+  flex: 0 0 auto;
+  opacity: 0;
+}
+
+.sign-up .text-wrapper-7 {
+  position: relative;
+  width: fit-content;
+  text-shadow: 0px 4px 4px #00000040;
+  font-family: "Roboto-Medium", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .frame-8 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.sign-up .text-wrapper-8 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  text-shadow: 0px 4px 4px #00000040;
+  font-family: "Roboto-Medium", Helvetica;
+  font-weight: 500;
+  color: #f3f2f2;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.sign-up .frame-9 {
+  display: flex;
+  width: 106px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #000000;
+  box-shadow: 0px 4px 4px #00000040;
+}

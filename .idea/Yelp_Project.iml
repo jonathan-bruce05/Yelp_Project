@@ -18,7 +18,11 @@
       <excludeFolder url="file://$MODULE_DIR$/venv2" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.12 (mysite)" jdkType="Python SDK" />
+=======
+    <orderEntry type="inheritedJdk" />
+>>>>>>> Sign-Up
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
