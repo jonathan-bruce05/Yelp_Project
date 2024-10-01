@@ -58,6 +58,17 @@
   white-space: nowrap;
 }
 
+.search-results .chomp-link {
+    text-decoration: none;  /* Removes underline */
+    outline: none;  /* Removes focus outline */
+    color: inherit;  /* Keep the original color */
+}
+
+.search-results .chomp-link:focus, .chomp-link:hover {
+    text-decoration: none;  /* No underline on hover */
+    outline: none;  /* No focus outline */
+}
+
 .search-results .search-bar-component {
   display: flex;
   width: 715px;

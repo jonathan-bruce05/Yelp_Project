@@ -67,7 +67,7 @@
         {% csrf_token %}
         <div class="navbar-component">
           <div class="frame">
-            <div class="text-wrapper">chomp</div>
+            <div class="text-wrapper"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
 
 
                 <div class="search-bar-component">
@@ -84,9 +84,9 @@
 
 
             <div class="frame-2">
-              <a href="/write-review" class="text-wrapper-2">Write a Review</a>
-              <a href="/login" class="text-wrapper-3">Log In</a>
-              <button class="frame-3" onclick="window.location.href='login/';"><div class="text-wrapper-4">Sign Up</div></button>
+              <a href="/yelpdupe/write-review/" class="text-wrapper-2">Write a Review</a>
+              <a href="/yelpdupe/login/" class="text-wrapper-3">Log In</a>
+              <button class="frame-3" onclick="window.location.href='/yelpdupe/register/';"><div class="text-wrapper-4">Sign Up</div></button>
             </div>
           </div>
         </div>
