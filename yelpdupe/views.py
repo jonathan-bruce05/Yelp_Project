@@ -108,7 +108,7 @@ def search_restaurants(request):
         'locations': locations,
         'GOOGLE_MAPS_API_KEY': settings.GOOGLE_PLACES_KEY  # Add API key to context
     }
-    return render(request, 'yelpdupe/search.html', context)  # Render the template with context
+    return render(request, 'yelpdupe/mainSearchNoLogin.html', context)  # Render the template with context
     # return redirect('map')
 
 def map_view(request):
