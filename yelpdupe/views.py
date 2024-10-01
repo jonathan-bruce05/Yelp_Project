@@ -83,3 +83,6 @@ def map_view(request):
     }
 
     return render(request, 'yelpdupe/map.html', context)
+
+def signup(request):
+    return render(request, 'yelpdupe/SignUpindex.html')
