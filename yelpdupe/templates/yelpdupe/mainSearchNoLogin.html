@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% load static %}
+    {%  load socialaccount %}
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="styleguide.css" />
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/globals.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styleGuide.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mainSearchNoLogin.css' %}" />
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap">
+    </script>
+
+
+    <script type="text/javascript">
+         document.addEventListener("DOMContentLoaded", function() {
+            initMap();  // Call the map initialization when the DOM is fully loaded
+        });
+
+        function initMap() {
+            var defaultLocation = {lat: 33.7490, lng: -84.3880};  // Default to Atlanta
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: defaultLocation
+            });
+
+            var locations = {{ locations|safe }};  // Ensure locations are passed to JavaScript
+
+            // If there are locations, place markers
+            if (locations.length > 0) {
+                locations.forEach(function(location) {
+                    var marker = new google.maps.Marker({
+                        position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },  // Parse lat/lng as floats
+                        map: map,
+                        title: location.name
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow();
+                    marker.addListener('click', function() {
+                        var contentString = `
+                            <div>
+                                <h3>${location.name}</h3>
+                                <p><strong>Address:</strong> ${location.address || 'No address available'}</p>
+                                <p><strong>Rating:</strong> ${location.rating || 'No rating available'}</p>
+                                <p><strong>Reviews:</strong> ${location.reviews || 'No reviews available'}</p>
+                                <a href="/yelpdupe/restaurant/${location.place_id}/">View Details</a>
+                            </div>
+                        `;
+                        infoWindow.setContent(contentString);
+                        infoWindow.open(map, marker);
+                    });
+                });
+            } else {
+                console.log("No locations to display");
+            }
+        }
+    </script>
+
   </head>
   <body>
     <div class="search-results">
@@ -12,16 +65,22 @@
         <div class="navbar-component">
           <div class="frame">
             <div class="text-wrapper">chomp</div>
-            <div class="search-bar-component">
-              <div class="rectangle"></div>
-              <div class="overlap-group-wrapper">
-                <div class="overlap-group">
-                  <div class="rectangle-wrapper"><div class="rectangle-2"></div></div>
-                  <img class="img" src="img/frame-19-2.svg" />
+
+              <form action="{% url 'search_restaurants' %}" method="POST">
+                {% csrf_token %}
+                <div class="search-bar-component">
+                  <input class="rectangle" name="query" placeholder="search restaurant name, cuisine type, or location" required></input>
+                  <div class="overlap-group-wrapper">
+                    <div class="overlap-group">
+                      <div class="rectangle-wrapper"><button class="rectangle-2"></button></div>
+                      <img class="img" src="{% static  'img/vector.svg' %}" alt="white space"/>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <input class="search-restaurant" />
-            </div>
+              </form>
+
+
+
             <div class="frame-2">
               <div class="text-wrapper-2">Write a Review</div>
               <div class="div-wrapper"><div class="text-wrapper-3">Log In</div></div>
@@ -29,95 +88,136 @@
             </div>
           </div>
         </div>
-        <div class="filters-component">
-          <div class="frame-4"><div class="text-wrapper-5">Filters</div></div>
-          <div class="frame-5">
-            <div class="text-wrapper-6">Distance</div>
-            <div class="frame-4">
-              <div class="div-2">
-                <div class="biking-mi">
-                  <div class="frame-6">
-                    <div class="ellipse"></div>
-                    <div class="group">
-                      <div class="frame-7"><div class="text-wrapper-7">Driving (5 mi.)</div></div>
-                    </div>
-                  </div>
+
+        <form action="{% url 'search_restaurants' %}" method="POST">
+        {% csrf_token %}
+            <div class="filters-component">
+              <div class="frame-4"><div class="text-wrapper-5">Filters</div></div>
+              <div class="frame-5">
+                <div class="text-wrapper-6">Distance</div>
+                <div class="frame-4">
+                      <div class="div-2">
+                        <label class="custom-radio">
+                          <input type="radio" name="distance" value="5000">
+                            <span class="ellipse"></span> <span class="normal-text">Driving (5 mi.)</span>
+                        </label>
+                        <label class="custom-radio">
+                          <input type="radio" name="distance" value="2000">
+                          <span class="ellipse"></span> <span class="normal-text">Biking (2 mi.)</span>
+                        </label>
+                        <label class="custom-radio">
+                          <input type="radio" name="distance" value="1000">
+                          <span class="ellipse"></span> <span class="normal-text">Walking (1 mi.)</span>
+                        </label>
+                        <label class="custom-radio">
+                          <input type="radio" name="distance" value="500">
+                          <span class="ellipse"></span> <span class="normal-text">Within 4 blocks</span>
+                        </label>
+                      </div>
                 </div>
-                <div class="frame-wrapper">
-                  <div class="frame-8">
-                    <div class="ellipse"></div>
-                    <div class="group-2">
-                      <div class="frame-7"><div class="text-wrapper-7">Biking (2 mi.)</div></div>
-                    </div>
-                  </div>
-                </div>
+              </div>
+              <div class="frame-5">
+                <div class="text-wrapper-6">Minimum Rating</div>
                 <div class="div-2">
-                  <div class="frame-6">
-                    <div class="ellipse"></div>
-                    <div class="group-3">
-                      <div class="frame-7"><div class="text-wrapper-7">Walking (1 mi.)</div></div>
+                  <div class="frame-wrapper-2">
+                    <div class="frame-8">
+                      <div class="ellipse"></div>
+                      <div class="group-5">
+                        <div class="frame-7"><div class="text-wrapper-7">1 star</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-wrapper-2">
+                    <div class="frame-8">
+                      <div class="ellipse-2"></div>
+                      <div class="group-6">
+                        <div class="frame-7"><div class="text-wrapper-8">2 stars</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-wrapper-2">
+                    <div class="frame-8">
+                      <div class="ellipse"></div>
+                      <div class="group-7">
+                        <div class="frame-7"><div class="text-wrapper-7">3 stars</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-wrapper-2">
+                    <div class="frame-8">
+                      <div class="ellipse"></div>
+                      <div class="group-7">
+                        <div class="frame-7"><div class="text-wrapper-7">4 stars</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-wrapper-2">
+                    <div class="frame-8">
+                      <div class="ellipse"></div>
+                      <div class="group-7">
+                        <div class="frame-7"><div class="text-wrapper-7">5 stars</div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="biking-mi-2">
-                  <div class="frame-8">
-                    <div class="ellipse-2"></div>
-                    <div class="group-4">
-                      <div class="frame-7"><div class="text-wrapper-8">Within 4 blocks</div></div>
-                    </div>
-                  </div>
-                </div>
               </div>
+              <div class="frame-9"><div class="text-wrapper-9">Apply Filters</div></div>
             </div>
+        </form>
+
+
+        <div class="search-container">
+          <div class="results-container">
+              {% if results %}
+                        <ul>
+                            {% for place in results %}
+                                <li>
+                                    <strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})
+                                    <br>
+                                    <a href="{% url 'reviews_viewer' %}?place_id={{ place.place_id }}">View Reviews</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% elif request.method == 'POST' %}
+                        <p>No results found. Please try a different search.</p>
+              {% endif %}
           </div>
-          <div class="frame-5">
-            <div class="text-wrapper-6">Minimum Rating</div>
-            <div class="div-2">
-              <div class="frame-wrapper-2">
-                <div class="frame-8">
-                  <div class="ellipse"></div>
-                  <div class="group-5">
-                    <div class="frame-7"><div class="text-wrapper-7">1 star</div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="frame-wrapper-2">
-                <div class="frame-8">
-                  <div class="ellipse-2"></div>
-                  <div class="group-6">
-                    <div class="frame-7"><div class="text-wrapper-8">2 stars</div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="frame-wrapper-2">
-                <div class="frame-8">
-                  <div class="ellipse"></div>
-                  <div class="group-7">
-                    <div class="frame-7"><div class="text-wrapper-7">3 stars</div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="frame-wrapper-2">
-                <div class="frame-8">
-                  <div class="ellipse"></div>
-                  <div class="group-7">
-                    <div class="frame-7"><div class="text-wrapper-7">4 stars</div></div>
-                  </div>
-                </div>
-              </div>
-              <div class="frame-wrapper-2">
-                <div class="frame-8">
-                  <div class="ellipse"></div>
-                  <div class="group-7">
-                    <div class="frame-7"><div class="text-wrapper-7">5 stars</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+
+          <div class="map-container">
+              <div id="map" style="height: 805px; width: 100%;"></div>
           </div>
-          <div class="frame-9"><div class="text-wrapper-9">Apply Filters</div></div>
         </div>
+
+
       </div>
     </div>
+
+    <Script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all radio buttons and their respective labels
+            const radios = document.querySelectorAll('input[type="radio"]');
+            const labels = document.querySelectorAll('.custom-radio label span.normal-text');
+
+            // Add change event listener to each radio button
+            radios.forEach((radio) => {
+                radio.addEventListener("change", () => {
+                    // Remove bold class from all labels before applying it to the clicked one
+                    labels.forEach((label) => {
+                        label.classList.remove("bold-text");
+                        label.classList.add("normal-text");
+                    });
+
+                    // Check if the clicked radio button is checked, and then apply the bold class
+                    if (radio.checked) {
+                        const selectedLabel = radio.parentNode.querySelector('span.normal-text');
+                        selectedLabel.classList.add("bold-text");
+                        selectedLabel.classList.remove("normal-text");
+                    }
+                });
+            });
+        });
+
+    </Script>
   </body>
 </html>
