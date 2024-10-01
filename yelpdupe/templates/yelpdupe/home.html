@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{% static 'css/globals.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   </head>
   <body>
     <div class="home-page">
@@ -14,23 +14,55 @@
             <p class="text-wrapper">Your next meal is here.</p>
             <div class="atlanta-awaits"><br />Atlanta awaits.</div>
           </div>
+
+
           <div class="component-wrapper">
-            <div class="component">
-              <div class="div">
-                <div class="text-wrapper-2">log in</div>
-                <div class="rectangle"></div>
-                <div class="text-wrapper-3">sign up</div>
+              <div class="component">
+
+              <div class="top-buttons">
+                  <button class="review">write a review</button>
+                <button class="log-in">log in</button>
+                <button class="sign-up">Sign up</button>
               </div>
-              <div class="text-wrapper-4">write a review</div>
-              <div class="text-wrapper-5">chomp</div>
+
+              <div class="chomp">chomp</div>
             </div>
           </div>
-          <div class="overlap-group-wrapper">
-            <div class="overlap-2">
-              <div class="rectangle-2"></div>
-              <div class="rectangle-3"></div>
-              <div class="frame"><div class="text-wrapper-6">middle eastern dinner spot</div></div>
-              <img class="vector" src="{% static 'img/vector.svg' %}" alt="vector image" />
+
+
+            <div class="overlap-group-wrapper">
+                <form method="POST" action="{% url 'search_restaurants' %}" id="search-form">
+                    {% csrf_token %}
+                    <div class="search-container">
+                        <!-- Name search textbox -->
+                        <input type="text" name="query" class="text-input" placeholder="Search restaurants..." required>
+
+                        <!-- Distance and Rating fields, initially hidden -->
+                        <div id="filter-fields" style="display: none;">
+                            <input type="number" name="distance" class="distance-input" placeholder="Distance (in meters)">
+                            <input type="number" name="min_rating" class="rating-input" placeholder="Min Rating (1-5)">
+                        </div>
+
+                        <!-- Submit button -->
+                        <button class="vector-btn" type="submit">
+                            <img class="vector" src="{% static 'img/vector.svg' %}" alt="Search Icon">
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Display results, if any -->
+                {% if results %}
+                    <h2>Search Results:</h2>
+                    <ul>
+                        {% for place in results %}
+                            <li><strong>{{ place.name }}</strong> - {{ place.formatted_address }} (Rating: {{ place.rating }})</li>
+                        {% endfor %}
+                    </ul>
+                {% elif request.method == 'POST' %}
+                    <p></p>
+                {% endif %}
+
+
             </div>
           </div>
         </div>
@@ -38,3 +70,16 @@
     </div>
   </body>
 </html>
+
+<script>
+  // When the page loads, check if results are available
+  window.onload = function() {
+    const filterFields = document.getElementById('filter-fields');
+    const resultsLength = {{ results|length|default:0 }};  // Pass the results length or default to 0
+
+    // If there are results, show the distance and rating inputs
+    if (resultsLength > 0) {
+      filterFields.style.display = 'block';
+    }
+  };
+</script>

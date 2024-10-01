@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'yelpdupe.apps.YelpdupeConfig',
+    'django.contrib.sites',           # Required for allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',  # Add Google OAuth
+    'allauth.socialaccount.providers.apple',   # Add Apple OAuth
 ]
 
 MIDDLEWARE = [
@@ -52,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'Yelp_Project.urls'
@@ -59,7 +66,7 @@ ROOT_URLCONF = 'Yelp_Project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': []
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -127,3 +134,37 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# New settings for authentication and social login
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/yelpdupe/login/'
+
+# If using allauth for social login
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Required for django-allauth
+SITE_ID = 1
+
+# Optional: Email and account settings
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+# Google OAuth Provider configuration (replace with actual credentials)
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'CLIENT_ID': '858199723942-tn4k3aqikaaqonn41dj66r7ksrn8vuae.apps.googleusercontent.com',
+        'SECRET': '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',
+    },
+   # 'apple': {
+        # Apple-specific configs (optional)
+   # }
+}
+
+AUTH_USER_MODEL = 'yelpdupe.CustomUser'
+
