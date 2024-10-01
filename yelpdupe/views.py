@@ -47,8 +47,8 @@ def search_restaurants(request):
         form = SearchForm(request.POST)  # Bind data to the form
         if form.is_valid():  # Validate the form data
             query = form.cleaned_data['query']  # Get the cleaned data from the form
-            distance = form.cleaned_data['distance'] or 5000  # Get the user-specified distance
-            min_rating = form.cleaned_data['min_rating'] or 2 # Get the user-specified minimum rating
+            distance = form.cleaned_data['distance'] or 50000  # Get the user-specified distance
+            min_rating = form.cleaned_data['min_rating'] or 1 # Get the user-specified minimum rating
 
             url = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
             params = {
