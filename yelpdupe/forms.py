@@ -10,7 +10,7 @@ User = get_user_model()
 
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=255, required=True)
-    distance = forms.IntegerField(required=False, min_value=100, max_value=50000)  # Optional field
+    distance = forms.IntegerField(required=False, min_value=1, max_value=50000)  # Optional field
     min_rating = forms.FloatField(required=False, min_value=1, max_value=5)  # Optional field
 
 
