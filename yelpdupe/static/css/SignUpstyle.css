@@ -319,3 +319,47 @@
   border-color: #000000;
   box-shadow: 0px 4px 4px #00000040;
 }
+
+
+/* Centering elements */
+.field-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px; /* space between fields */
+}
+
+/* Keep the input field centered + space for error */
+.field-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Input field style */
+.field-container input {
+  width: 320px;
+  padding: 10px;
+  text-align: center;
+  margin-right: 50px;
+}
+
+/* Error message style */
+.field-container .error {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  left: 350px;
+  white-space: nowrap;
+}
+
+/* Sign Up button  centered */
+.field-wrapper button {
+  width: 320px;
+  padding: 10px;
+  background-color: #2e2bb2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

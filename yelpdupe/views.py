@@ -244,7 +244,7 @@ def favorite_restaurants(request):
 @login_required(login_url='/yelpdupe/login/')
 def write_review(request, place_id=None, restaurant_name=None):
     if not place_id or not restaurant_name:
-        return redirect('search_review')
+        return redirect('search_write_review')
 
     decoded_restaurant_name = urllib.parse.unquote(restaurant_name)
     if request.method == 'POST':
@@ -327,13 +327,15 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])  # Hash the password
+            user.set_password(form.cleaned_data['password1'])  # Hash the password
             user.save()
 
             # Specify the backend to be used for authentication
             backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user, backend=backend)  # Log the user in with the correct backend
             return redirect('home')  # Redirect to a home page after successful registration
+        else:
+            return render(request, 'yelpdupe/register.html', {'form': form})
     else:
         form = RegisterForm()
 

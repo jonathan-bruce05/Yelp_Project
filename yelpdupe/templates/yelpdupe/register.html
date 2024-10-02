@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="sign-up">
-      <img class="rectangle" src="{% static 'img/rectangle-12.png' %}" alt="white space"/>
+      <img class="rectangle" src="{% static 'css/img/rectangle-12.png' %}" alt="white space"/>
       <div class="component">
         <div class="frame">
           <div class="div-wrapper">
@@ -27,68 +27,73 @@
 
         <!-- Registration Form -->
         <form method="POST" action="{% url 'register' %}">
-          {% csrf_token %}
-          <div class="div">
-            <div class="textboxes">
-              <!-- Email Field -->
-              <input type="email" name="email" class="email" placeholder="Email" required>
-              <!-- Display error for email -->
-              {% if form.email.errors %}
-                <div class="error">{{ form.email.errors }}</div>
-              {% endif %}
+            {% csrf_token %}
+
+            <!-- Email Field -->
+            <div class="field-wrapper">
+                <div class="field-container">
+                    <input type="email" name="email" class="email" placeholder="Email" required>
+                    {% if form.email.errors %}
+                        <div class="error">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
             </div>
 
-            <div class="textboxes">
-              <!-- Username Field -->
-              <input type="text" name="username" class="username" placeholder="Username" required>
-              <!-- Display error for username -->
-              {% if form.username.errors %}
-                <div class="error">{{ form.username.errors }}</div>
-              {% endif %}
+            <!-- Username Field -->
+            <div class="field-wrapper">
+                <div class="field-container">
+                    <input type="text" name="username" class="username" placeholder="Username" required>
+                    {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
             </div>
 
-            <div class="textboxes">
-              <!-- Password Field -->
-              <input type="password" name="password1" class="input" placeholder="Password" required>
-              <!-- Display error for password1 -->
-              {% if form.password1.errors %}
-                <div class="error">{{ form.password1.errors }}</div>
-              {% endif %}
+            <!-- Password Field -->
+            <div class="field-wrapper">
+                <div class="field-container">
+                    <input type="password" name="password1" class="input" placeholder="Password" required>
+                    {% if form.password1.errors %}
+                        <div class="error">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
             </div>
 
-            <div class="textboxes">
-              <!-- Confirm Password Field -->
-              <input type="password" name="password2" class="input" placeholder="Confirm Password" required>
-              <!-- Display error for password2 -->
-              {% if form.password2.errors %}
-                <div class="error">{{ form.password2.errors }}</div>
-              {% endif %}
+            <!-- Confirm Password Field -->
+            <div class="field-wrapper">
+                <div class="field-container">
+                    <input type="password" name="password2" class="input" placeholder="Confirm Password" required>
+                    {% if form.password2.errors %}
+                        <div class="error">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
             </div>
 
             <!-- Sign Up Button -->
-            <button type="submit" class="frame-3">
-              <div class="text-wrapper-2">Sign Up</div>
-            </button>
-          </div>
+            <div class="field-wrapper">
+                <button type="submit" class="frame-3">Sign Up</button>
+            </div>
         </form>
 
-        <!-- Or Separator -->
-        <div class="frame-4">
-          <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
-          <div class="text-wrapper-3">or</div>
-          <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
-        </div>
 
-        <!-- Google Login Button -->
+      <!-- Display non-field errors -->
+      {% if form.non_field_errors %}
+        <div class="error">{{ form.non_field_errors }}</div>
+      {% endif %}
 
+      <!-- Or Separator -->
+      <div class="frame-4">
+        <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
+        <div class="text-wrapper-3">or</div>
+        <img class="line" src="{% static 'img/line-5-1.svg' %}" alt="line" />
+      </div>
 
-        <!-- Log in Redirect -->
-        <div class="frame">
-          <div class="text-wrapper-4">Already have an account?</div>
-          <a href="{% url 'login' %}">
-            <div class="text-wrapper-5">Log in</div>
-          </a>
-        </div>
+      <!-- Log in Redirect -->
+      <div class="frame">
+        <div class="text-wrapper-4">Already have an account?</div>
+        <a href="{% url 'login' %}">
+          <div class="text-wrapper-5">Log in</div>
+        </a>
       </div>
     </div>
   </body>
