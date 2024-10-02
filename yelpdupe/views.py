@@ -249,10 +249,12 @@ def write_review(request, place_id=None, restaurant_name=None):
     decoded_restaurant_name = urllib.parse.unquote(restaurant_name)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
+        rating = request.POST.get('rating')
         if form.is_valid():
             new_review = form.save(commit=False)
-            new_review.place_id = place_id  # Add place_id to form request
-            new_review.author_name = request.user.username  # logged-in user's username
+            new_review.place_id = place_id  #  place_id
+            new_review.author_name = request.user.username  # user's username
+            new_review.rating = rating # star rating
             new_review.time = datetime.now()  # current time
             new_review.save()
 

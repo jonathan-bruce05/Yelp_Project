@@ -4,61 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write a Review for {{ restaurant_name }}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        form {
-            margin-top: 20px;
-        }
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styleGuide.css' %}">
+    <link rel="stylesheet" href="{% static 'css/writeReviewStyle.css' %}">
+    <script src="{% static 'js/rating.js' %}" defer></script> <!-- Ensure JavaScript is loaded -->
 </head>
 <body>
-    <div class="container">
-        <h1>Write a Review for {{ restaurant_name }}</h1>
-        {% if user.is_authenticated %}
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Submit Review</button>
-            </form>
-        {% else %}
-            <!-- If not logged in, show login/signup prompt -->
-            <div class="login-message">
-                <p>You need to <a href="{% url 'login' %}" class="login-button">Log In</a> or
-                <a href="{% url 'register' %}" class="signup-button">Sign Up</a> to write a review.</p>
+    <!-- Chomp Logo in the top left corner -->
+    <div class="navbar-component">
+        <div class="frame">
+        <div class="text-wrapper"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
+        </div>
+    </div>
+
+    <!-- Centered review content -->
+    <div class="review-page">
+        <div class="frame-wrapper">
+            <!-- Left aligned "Tell us your thoughts" -->
+            <div class="text-wrapper-5">Tell us your thoughts about {{ restaurant_name }}.</div>
+
+            <!-- Left aligned star rating label -->
+            <div class="text-wrapper-6">Select your star rating:</div>
+
+            <!-- Centered Star rating container -->
+            <div class="frame-5">
+                <!-- Hidden input to store selected rating value -->
+                <input type="hidden" id="rating-value" name="rating" value="0">
+
+                <!-- Star icons for rating -->
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
             </div>
-        {% endif %}
+
+            {% if user.is_authenticated %}
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <!-- Hidden input to store selected rating value -->
+                    <input type="hidden" id="rating-value" name="rating" value="0">
+
+                    <!-- Label above the text box -->
+                    <div class="label-wrapper">Your review</div>
+
+                    <!-- Text box for the review -->
+                    <textarea id="review-text" name="text" rows="5" placeholder="Tell us your thoughts"></textarea>
+
+                    <!-- Submit button -->
+                    <div class="frame-7">
+                        <button type="submit" class="text-wrapper-7">Post Review</button>
+                    </div>
+                </form>
+            {% else %}
+                <!-- If not logged in, show login/signup prompt -->
+                <div class="login-message">
+                    <p>You need to <a href="{% url 'login' %}" class="login-button">Log In</a> or
+                    <a href="{% url 'register' %}" class="signup-button">Sign Up</a> to write a review.</p>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
