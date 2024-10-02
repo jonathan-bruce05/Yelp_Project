@@ -46,10 +46,10 @@ def mainSearch(request):
 
 #Google Restaurant search implementation
 def search_restaurants(request):
-    form = SearchForm()  # Create an empty form instance
+    form = SearchForm()  # empty form instance
     results = []
     restaurant_locations = []  # This will store lat/lng/name for the map
-    # Set a default location (e.g., Atlanta's coordinates)
+    # default location Atlanta's coordinates
     location = '33.7490,-84.3880'  # Atlanta, GA coordinates as default center
 
     if request.method == 'POST':  # Check if the form was submitted
@@ -80,7 +80,7 @@ def search_restaurants(request):
                     if 'geometry' in result and 'location' in result['geometry']:
                         lat = result['geometry']['location']['lat']
                         lng = result['geometry']['location']['lng']
-                        name = result.get('name', 'Unknown Restaurant')
+                        name = result.get('name', 'the Restaurant')
                         place_id = result.get('place_id', None)  # Get the place_id for linking
 
                         # Only add the restaurant if a place_id is available
@@ -92,7 +92,7 @@ def search_restaurants(request):
                                 'place_id': place_id,  # Make sure place_id is included
                                 'address': result.get('formatted_address', 'No address available'),
                                 'rating': result.get('rating', 'No rating available'),
-                                'reviews': result.get('user_ratings_total', 'No reviews available')
+                                'reviews': result.get('user_ratings_total', 'No reviews available'),
                             })
             else:
                 results = []  # Handle errors gracefully
@@ -190,7 +190,7 @@ def get_reviews(place_id):
 
 def reviews_viewer(request):
     place_id = request.GET.get('place_id')
-    restaurant_name = request.GET.get('restaurant_name', 'Unknown Restaurant')
+    restaurant_name = request.GET.get('restaurant_name', 'the Restaurant')
 
     google_reviews = get_reviews(place_id) if place_id else []
     user_reviews = Review.objects.filter(place_id=place_id)
@@ -205,31 +205,13 @@ def reviews_viewer(request):
     for review in user_reviews:
         review.time = review.time.strftime('%B %d, %Y')
 
-    # Review form
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            new_review = form.save(commit=False)
-            new_review.place_id = place_id
-            new_review.time = datetime.now()
-            new_review.save()
-            return redirect(request.path_info + f'?place_id={place_id}') #reloads page
-    else:
-        form = ReviewForm()
-
-    # combines reviews into 1 list
+    # Combine reviews into one list
     all_reviews = list(google_reviews) + list(user_reviews)
 
-    # Pageifies reviews
-    paginator = Paginator(all_reviews, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
     return render(request, 'yelpdupe/reviewsearch.html', {
-        'page_obj': page_obj,
+        'page_obj': all_reviews,  # Pass all reviews without pagination
         'place_id': place_id,
         'restaurant_name': restaurant_name,
-        'form': form,
     })
 
 def favorite_restaurants(request):
@@ -243,6 +225,7 @@ def favorite_restaurants(request):
 
 @login_required(login_url='/yelpdupe/login/')
 def write_review(request, place_id=None, restaurant_name=None):
+
     if not place_id or not restaurant_name:
         return redirect('search_write_review')
 
@@ -301,7 +284,7 @@ def review_search(request):
                     if 'geometry' in result and 'location' in result['geometry']:
                         lat = result['geometry']['location']['lat']
                         lng = result['geometry']['location']['lng']
-                        name = result.get('name', 'Unknown Restaurant')
+                        name = result.get('name', 'the Restaurant')
                         place_id = result.get('place_id', None)
 
                         if place_id:

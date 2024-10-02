@@ -64,7 +64,7 @@
         <!-- Search Form -->
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}  <!-- Renders the form with proper HTML tags -->
+            {{ form.as_p }}
             <button type="submit">Search</button>
         </form>
 
@@ -80,6 +80,7 @@
                     <div class="button-container">
                         <!-- Write Button -->
                         <a href="{% url 'write_review' place_id=restaurant.place_id restaurant_name=restaurant.name|urlencode %}">Write a Review</a>
+
                         <!-- Reviews Button -->
                         <a href="{% url 'reviews_viewer' %}?place_id={{ restaurant.place_id }}&restaurant_name={{ restaurant.name|urlencode }}">See Reviews</a>
                     </div>

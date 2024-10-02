@@ -4,78 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Reviews</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        .reviews-container {
-            margin-top: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            padding: 10px;
-            margin-bottom: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .pagination a, .pagination span {
-            margin: 0 5px;
-            padding: 10px 15px;
-            text-decoration: none;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .pagination span {
-            background-color: #ff0086;
-            color: white;
-        }
-        .pagination a:hover {
-            background-color: #0056b3;
-            color: white;
-        }
-        .review-button {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .review-button a {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-        .review-button a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/reviewResultsStyle.css' %}">
 </head>
 <body>
+    <!-- Navbar Component -->
+    <div class="navbar-component">
+    <div class="frame">
+        <a href="{% url 'home' %}" class="chomp-link">
+            <img src="{% static 'img/chomp.png' %}" alt="Chomp Logo" class="chomp-logo-img">
+        </a>
+    </div>
+</div>
+
     <div class="container">
         <h1>Reviews for {{ restaurant_name }}</h1>
 
         <!-- Display reviews -->
         <div class="reviews-container">
-            <h2>Reviews:</h2>
             <ul>
                 {% for review in page_obj %}
                     <li>
-                        <strong>{{ review.author_name }} Rating: {{ review.rating }}</strong><br>
+                        <strong>{{ review.author_name }} - Rating: {{ review.rating }}</strong><br>
                         <p>{{ review.text }}</p>
                         <small>{{ review.time }}</small>
                     </li>
@@ -85,32 +35,10 @@
             </ul>
         </div>
 
-        <!-- Pagination links -->
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?place_id={{ place_id }}&page=1">&laquo; First</a>
-                <a href="?place_id={{ place_id }}&page={{ page_obj.previous_page_number }}">Previous</a>
-            {% else %}
-                <span>&laquo; First</span>
-                <span>Previous</span>
-            {% endif %}
-
-            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-
-            {% if page_obj.has_next %}
-                <a href="?place_id={{ place_id }}&page={{ page_obj.next_page_number }}">Next</a>
-                <a href="?place_id={{ place_id }}&page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
-            {% else %}
-                <span>Next</span>
-                <span>Last &raquo;</span>
-            {% endif %}
-        </div>
-
         <!-- "Write a Review" Button -->
         <div class="review-button">
             <a href="{% url 'write_review' place_id place_id|urlencode %}" class="btn btn-primary">Write a Review</a>
         </div>
-
     </div>
 </body>
 </html>
