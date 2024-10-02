@@ -9,14 +9,20 @@
     <link rel="stylesheet" href="{% static 'css/SignUpstyle.css' %}" />
   </head>
   <body>
-    <div class="sign-up">
-      <img class="rectangle" src="{% static 'css/img/rectangle-12.png' %}" alt="white space"/>
-      <div class="component">
-        <div class="frame">
-          <div class="div-wrapper">
-            <div class="text-wrapper">Welcome</div>
-          </div>
+  <div class="navbar-component">
+    <div class="frame">
+      <div class="text-wrapper"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
+    </div>
+  </div>
+
+  <div class="sign-up">
+    <img class="rectangle" src="{% static 'css/img/rectangle-12.png' %}" alt="white space"/>
+    <div class="component">
+      <div class="frame">
+        <div class="div-wrapper">
+          <div class="text-wrapper">Welcome</div>
         </div>
+      </div>
 
         <!-- Non-field errors (e.g., password mismatch) -->
         {% if form.non_field_errors %}

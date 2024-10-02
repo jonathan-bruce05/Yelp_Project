@@ -1,10 +1,10 @@
 .sign-up {
   display: flex;
   flex-direction: column;
-  height: 1024px;
+  height: 100vh;
   align-items: center;
-  gap: 47px;
-  position: relative;
+  justify-content: flex-start;
+  padding-top: 50px;
   background-color: #f3f2f2;
   overflow: hidden;
 }
@@ -354,7 +354,7 @@
   white-space: nowrap;
 }
 
-/* Sign Up button  centered */
+/* Sign Up button centered */
 .field-wrapper button {
   width: 320px;
   padding: 10px;
@@ -362,4 +362,34 @@
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+.navbar-component {
+  display: flex;
+  width: 100%; /* Full width to span across the top */
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px; /* Adjust as needed */
+  position: relative;
+  background-color: #fff; /* Adjust background as needed */
+  border-bottom: 1px solid #e1e1e1; /* Optional border for separation */
+}
+
+.text-wrapper {
+  font-family: "Rubik Dirt", sans-serif;
+  font-size: 24px;
+  color: #000; /* Adjust the color of the text */
+}
+
+.chomp-link {
+  text-decoration: none;
+  color: #1e1e1e; /* Keep it consistent with your color scheme */
+  font-family: "Rubik Dirt", sans-serif;
+  font-size: 36px; /* Adjust size as needed */
+  font-weight: bold;
+}
+
+.chomp-link:hover {
+  color: #2e2bb2; /* Color change on hover */
 }
