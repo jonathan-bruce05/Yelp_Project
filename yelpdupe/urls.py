@@ -20,7 +20,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
 
     path('accounts/', include('allauth.urls')),
-
     path('reset_password/', views.search_username, name='search_username'),
     path('reset_password/<str:username>/', views.reset_password, name='reset_password'),
 
