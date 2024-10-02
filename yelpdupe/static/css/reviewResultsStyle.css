@@ -1,0 +1,103 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Reviews Container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f3f2f2;
+}
+
+/* Navbar */
+.navbar-component {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e1e1e1;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Style the chomp logo image */
+.chomp-logo-img {
+    width: 120px;
+    height: auto;
+    display: block;
+    filter: brightness(1) invert(1);
+}
+
+.chomp-logo-img:hover {
+    opacity: 0.9;
+}
+
+/* Header */
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e1e1e;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Reviews container */
+.reviews-container {
+    flex-grow: 1;
+    margin-top: 20px;
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+/* Reviews */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+strong {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Review button */
+.review-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.review-button a {
+    background-color: #2e2bb2;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.review-button a:hover {
+    background-color: #1a1a80;
+}

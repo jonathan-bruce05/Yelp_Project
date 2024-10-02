@@ -15,23 +15,24 @@ class SearchForm(forms.Form):
 
 
 
-class RegisterForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
-
+class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'confirm_password']
+        fields = ['username', 'email', 'password1', 'password2']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        confirm_password = cleaned_data.get('confirm_password')
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': 'Username'})
+        self.fields['email'].widget.attrs.update({'placeholder': 'Email'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Password'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm Password'})
 
-        if password and confirm_password and password != confirm_password:
-            raise forms.ValidationError("Passwords do not match")
-
-        return cleaned_data
+    # Optionally, override this method if you need custom validation
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already in use. Please choose another one.")
+        return email
 
 class UsernameForm(forms.Form):
     username = forms.CharField(max_length=150, required=True)
@@ -40,8 +41,7 @@ class UsernameForm(forms.Form):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['rating', 'text']
+        fields = ['text']
         widgets = {
-            'rating': forms.NumberInput(attrs={'min': 1, 'max': 5}),
-            'text': forms.Textarea(attrs={'rows': 5}),
+            'text': forms.Textarea(attrs={'rows': 5, 'placeholder': 'Tell us your thoughts'}),
         }

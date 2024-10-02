@@ -1,0 +1,142 @@
+/* Container for the entire review page */
+.review-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the top */
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    box-sizing: border-box;
+    padding-top: 10%;
+    position: relative;
+}
+
+/* Centered content excluding chomp logo */
+.frame-wrapper {
+
+    align-content: center;
+    width: 80%; /* Adjust width */
+    max-width: 1000px; /* Maximum width */
+    margin: 0 auto; /* Center the content */
+}
+
+/* Styling for the "Tell us your thoughts" text */
+.text-wrapper-5 {
+    font-family: "Inter", Semi-bold;
+    font-size: 30px;
+    font-weight: 650;
+    color: #1e1e1e;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Star rating section */
+.text-wrapper-6 {
+    font-family: "Inter", Semi-bold;
+    font-size: 20px;
+    font-weight: 650;
+    color: #1e1e1e;
+    text-align: left;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+/* Star rating container */
+.frame-5 {
+    display: flex;
+    justify-content: flex-start; /* Align stars to the left */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Star rating styles */
+.star {
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #afafaf;
+}
+
+.star.selected,
+.star:hover {
+    color: #2e2bb2; /* Gold color for selected or hovered stars */
+}
+
+textarea#review-text {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #f3f2f2;
+    border-radius: 4px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+/* Styling for "Your review" label */
+.label-wrapper {
+    font-family: "Inter", Semi-bold;
+    font-size: 20px;
+    font-weight: 650;
+    color: #1e1e1e;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Submit button styling */
+.text-wrapper-7 {
+    background-color: #2e2bb2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.text-wrapper-7:hover {
+    background-color: #1a1a80;
+}
+
+/* Button centering */
+.frame-7 {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+}
+
+.navbar-component {
+    display: flex;
+    width: 110%;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
+    background-color: #f3f2f2;
+    border-bottom: 10px #1e1e1e;
+}
+
+
+
+.chomp-link {
+    vertical-align: center;
+    text-decoration: none;
+    color: #1e1e1e; /* Keep it consistent with your color scheme */
+    font-family: "Rubik Dirt", Helvetica, serif;
+    font-weight: 850;
+    font-size: 36px; /* Adjust size as needed */
+}
+
+.chomp-link:hover {
+  color: #2e2bb2; /* Color change on hover */
+}

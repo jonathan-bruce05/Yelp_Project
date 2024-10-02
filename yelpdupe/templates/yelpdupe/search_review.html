@@ -4,42 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Search</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styleGuide.css' %}">
+    <link rel="stylesheet" href="{% static 'css/searchReviewStyle.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0px;
         }
-        .search-container {
-            max-width: 600px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
+
         form {
             display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
+            align-items: center;
         }
-        input[type="text"],
-        button {
+        input[type="text"] {
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid black;
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+            box-sizing: border-box;
+            font: message-box;
         }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
+        .search-button {
+            padding: 0;
+            background-color: transparent;
             cursor: pointer;
+            height: 40px;
+            width: 40px;
+            box-sizing: border-box;
+            border: 2px black;
         }
-        button:hover {
-            background-color: #0056b3;
+        .search-button img {
+            border: 2px black;
+
+        }
+        .results-container {
+            max-height: 500px; /* Set the max height for the list box */
+            width: 100%;
+            overflow-y: auto;  /* Enable vertical scrolling */
+            border: 1px solid black; /* Add a border around the box */
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
         }
         li {
             padding: 10px;
@@ -57,31 +68,51 @@
     </style>
 </head>
 <body>
+    <!-- Chomp logo with Navbar -->
+    <div class="navbar-component">
+        <div class="frame">
+            <div class="text-wrapper"><a href="{% url 'home' %}" class="chomp-link">chomp</a></div>
+        </div>
+    </div>
+
+    <!-- Search Page Content -->
     <div class="search-container">
-        <h1>Restaurant Search</h1>
+        <div class="search-frame">
+            <div class="search-title">Find the restaurant you want to review</div>
 
-        <!-- Search Form -->
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.query.label_tag }} <!-- Only show the query field -->
-            {{ form.query }} <!-- Render only the query field without distance or rating -->
-            <button type="submit">Search</button>
-        </form>
+            <!-- Search Form -->
+            <form method="POST">
+                {% csrf_token %}
+                <!-- Removed label_tag to remove "Query" text -->
+                {{ form.query }} <!-- Render only the query input without the label -->
+                <button type="submit" class="search-button">
+                    <img src="{% static 'img/vector.svg' %}" alt="Search Icon" />
+                </button>
+            </form>
 
-        <!-- Search Results -->
-        {% if results %}
-            <h2>Search Results:</h2>
-            <ul>
-            {% for restaurant in results %}
-                <li>
-                    <strong>{{ restaurant.name }}</strong> - {{ restaurant.address }} (Rating: {{ restaurant.rating }})<br>
-                    <a href="{% url 'write_review' place_id=restaurant.place_id restaurant_name=restaurant.name|urlencode %}">
-                        Write a Review
-                    </a>
-                </li>
-            {% endfor %}
-            </ul>
+            <!-- Search Results -->
+            {% if results %}
+            <div class="results-container">
+                <ul>
+                {% for restaurant in results %}
+                    <li>
+                        <strong>{{ restaurant.name }}</strong> - {{ restaurant.address }} (Rating: {{ restaurant.rating }})<br>
+                        <a href="{% url 'write_review' place_id=restaurant.place_id restaurant_name=restaurant.name|urlencode %}">
+                            Write a Review
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
         {% elif request.method == 'POST' %}
             <p>No results found. Please try a different search.</p>
         {% endif %}
+        </div>
+
+        <!-- Optional image on the side -->
+        <div class="search-image">
+            <img src="{% static 'img/searchPerson.png' %}" alt="Illustration">
+        </div>
     </div>
+</body>
+</html>
